@@ -1,0 +1,64 @@
+<body>
+
+  <div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100 p-t-50 p-b-90">
+            <form #loginForm="ngForm" class="login100-form validate-form flex-sb flex-w"
+            id="frmLogin" asp-action="Index" method="post"
+            (ngSubmit)="onSubmit(accountService.currentAccount.username,
+            accountService.currentAccount.password)" #form="ngForm">
+                <span class="login100-form-title p-b-51">
+                    Login
+                </span>
+
+                <div class="col-md-12" *ngIf="errorStr != null">
+                    <p style="text-align: center" class="alert alert-danger">
+                      {{errorStr}}
+                    </p>
+                </div>
+
+                <div class="wrap-input100 validate-input m-b-16"
+                data-validate="Username is required">
+                    <input class="input100" type="text"  #username="ngModel"
+                    placeholder="Username" name="username"
+                    [(ngModel)]="accountService.currentAccount.username"
+                    autocomplete="off" id="txtUserName" autofocus="autofocus" required>
+                    <span class="focus-input100"></span>
+                </div>
+                <!-- <small class="text-danger" [class.d-none]="username.valid">
+                  Username is invalid
+                </small> -->
+
+
+                <div class="wrap-input100 validate-input m-b-16"
+                data-validate="Password is required">
+                    <input class="input100" type="password" #password="ngModel"
+                    name="password" placeholder="Password"
+                    [(ngModel)]="accountService.currentAccount.password"
+                    id="txtpassword" required [class.is-invalid]="password.invalid">
+                    <span class="focus-input100"></span>
+                </div>
+                <!-- <small class="text-danger" [class.d-none]="password.valid">
+                  Password is invalid
+                </small> -->
+
+                <div class="flex-sb-m w-full p-t-3 p-b-24">
+            <div class="contact100-form-checkbox">
+                <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+                <label class="label-checkbox100" for="ckb1">Remember me</label>
+            </div>
+        </div>
+                <a href="#"
+                style="text-align: center; font-size: 14px; color: white; margin-left: 50%; transform: translateX(-50%)"
+                   >Sign Up</a>
+                <div class="container-login100-form-btn m-t-17">
+                    <input class="login100-form-btn" type="submit" value="LOGIN">
+                </div>
+
+            </form>
+        </div>
+    </div>
+  </div>
+
+
+</body>

@@ -1,0 +1,7 @@
+@import '../../../assets/css/style.css';
+@import '../../../assets/css/animate.min.css';
+
+.sidebar{
+  background-image: url('../../../assets/images/sidebar-3.jpg') !important;
+}
+

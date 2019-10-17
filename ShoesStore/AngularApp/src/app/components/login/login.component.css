@@ -1,0 +1,8 @@
+@import '../../../assets/css/login_util.css';
+@import '../../../assets/css/login_main.css';
+@import '../../../assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css';
+@import '../../../assets/fonts/Linearicons-Free-v1.0.0/icon-font.min.css';
+
+body{
+  background-image: url('../../../assets/images/login_background.png') !important;
+}
