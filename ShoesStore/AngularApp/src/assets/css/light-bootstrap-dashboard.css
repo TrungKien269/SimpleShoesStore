@@ -16,8 +16,8 @@
 /*      light colors         */
 
 /*css for shoes detail*/
-@import url(../../assets/fonts/GT-Sectra-Book.css);@import url(../../assets/fonts/GT-Sectra-Medium.css);@import url(../../assets/fonts/GT-Sectra-Book.css);@import url(../../assets/fonts/PlainBold-Regular.css);@import url(../../assets/fonts/PlainMedium-Regular.css);@import url(../../assets/fonts/PlainRegular-Regular.css);@import url(../../assets/fonts/PlainLight-Regular.css);html {
-    overflow-x: hidden; }
+/* @import url(../../assets/fonts/GT-Sectra-Book.css);@import url(../../assets/fonts/GT-Sectra-Medium.css);@import url(../../assets/fonts/GT-Sectra-Book.css);@import url(../../assets/fonts/PlainBold-Regular.css);@import url(../../assets/fonts/PlainMedium-Regular.css);@import url(../../assets/fonts/PlainRegular-Regular.css);@import url(../../assets/fonts/PlainLight-Regular.css);html {
+    overflow-x: hidden; } */
 html.no-scroll, html.no-scroll body {
     height: 100%;
     overflow: hidden; }

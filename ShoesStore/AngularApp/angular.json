@@ -24,7 +24,6 @@
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.css",
-              "node_modules/bootstrap/dist/css/light-bootstrap-dashboard.css",
               "src/styles.css"
             ],
             "scripts": [

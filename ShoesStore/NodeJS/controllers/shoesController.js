@@ -1,0 +1,44 @@
+const express = require('express');
+var router = express.Router();
+var ObjectId = require('mongoose').Types.ObjectId;
+var { Shoes } = require('../models/shoes');
+
+router.get('/', (req, res) => {
+    Shoes.find((err, doc) => {
+        if(!err){
+            res.json(doc);
+        }
+        else{
+            res.json({
+                status: false,
+                message: "Error in retriving Account: " + 
+                JSON.stringify(err, undefined, 2)
+            })
+        }
+    });
+});
+
+router.post('/', (req, res) => {
+    var shoes = new Shoes({
+        name: req.body.name,
+        designer: req.body.designer,
+        maker_id: req.body.maker_id,
+        category_id: req.body.category_id,
+        origin_id: req.body.origin_id,
+        shoes_sizes: req.body.shoes_sizes,
+        shoes_colors: req.body.shoes_colors,
+        release_date: req.body.release_date,
+        status: 1
+    });
+    console.log(shoes);
+    Shoes.collection.insertOne(shoes, (err, doc) => {
+        if(err){
+            res.json(err);
+        }
+        else{
+            res.json({message: "Insert Successfully!"});
+        }
+    })
+});
+
+module.exports = router;
