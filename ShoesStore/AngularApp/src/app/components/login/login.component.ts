@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
         this.errorStr = response.message;
       }
       else {
-        console.log(response);
+        console.log(response.obj as Account);
       }
     });
   }
@@ -55,5 +55,5 @@ export class LoginComponent implements OnInit {
     this.accountService.currentAccount.username = username;
     this.accountService.currentAccount.password = password;
   }
-
+  // Code tuần 1
 }

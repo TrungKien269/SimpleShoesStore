@@ -15,3 +15,4 @@ var Shoes = mongoose.model('shoes', {
 });
 
 module.exports = { Shoes };
+// Code tuần 1

@@ -16,4 +16,9 @@ export class ShoesService {
   GetList() {
     return this.http.get(this.baseURL);
   }
+
+  GetShoes(id: string) {
+    return this.http.get(this.baseURL + id);
+  }
+   // Code tuần 1
 }

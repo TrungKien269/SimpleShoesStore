@@ -1,6 +1,5 @@
 const express = require('express');
 var router = express.Router();
-var ObjectId = require('mongoose').Types.ObjectId;
 var { Account } = require('../models/accounts');
 var md5 = require('md5');
 
@@ -47,7 +46,7 @@ router.post('/login', (req, res) => {
                 res.json({
                     status: true,
                     message: "Success",
-                    account: account
+                    obj: account
                 });
             }
         }
@@ -73,3 +72,4 @@ router.post('/', (req, res) => {
 });
 
 module.exports = router;
+// Code tuần 1

@@ -21,5 +21,5 @@ export class MainComponent implements OnInit {
       console.log(this.ListShoes);
     });
   }
-
+  // Code tuần 1
 }

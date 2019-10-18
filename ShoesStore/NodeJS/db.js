@@ -9,3 +9,4 @@ mongoose.connect('mongodb://shoesstore:Hw2f_-pBxQMf@den1.mongo1.gear.host:27001/
     }
 });
 module.exports = mongoose;
+// Code tuần 1
