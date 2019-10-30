@@ -15,9 +15,17 @@ app.listen(3000, () => console.log("Server starts at port: 3000"));
 
 var accountController = require('./controllers/accountController');
 var shoesController = require('./controllers/shoesController');
+var categoryController = require('./controllers/categoryController');
+var makerController = require('./controllers/makerController');
+var originController = require('./controllers/originController');
+var supplierController = require('./controllers/supplierController');
 
 app.use('/accounts', accountController);
 app.use('/shoes', shoesController);
+app.use('/categories', categoryController);
+app.use('/makers', makerController);
+app.use('/origins', originController);
+app.use('/suppliers', supplierController);
 
 app.get('/', (req, res) => {
     res.send("Hello World!");
