@@ -41,12 +41,14 @@ export class LoginComponent implements OnInit {
 
   onSubmit(username: string, password: string) {
     this.accountService.Login(username, password).subscribe((res) => {
-      var response: Response = res as Response;
-      if(!response.status) {
+      const response: Response = res as Response;
+      if (!response.status) {
         this.errorStr = response.message;
       }
       else {
         console.log(response.obj as Account);
+        sessionStorage.setItem('account', (response.obj as Account)._id);
+        this.route.navigate(['/']);
       }
     });
   }

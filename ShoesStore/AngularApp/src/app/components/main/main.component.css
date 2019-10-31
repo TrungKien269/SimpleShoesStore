@@ -44,3 +44,10 @@ ul.menu-left > li:hover > a{
   padding-right: 0px;
 }
 
+#logoutTag{
+  cursor: pointer;
+}
+
+#logoutTag:hover{
+  color: blue;
+}

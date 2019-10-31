@@ -20,4 +20,9 @@ export class AccountService {
     });
   }
   // Code tuần 1
+
+  Logout(){
+    sessionStorage.removeItem('account');
+    sessionStorage.removeItem('currenPage');
+  }
 }

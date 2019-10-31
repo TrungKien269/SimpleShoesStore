@@ -28,9 +28,15 @@
               </div>
               <div class="navbar-header">
                   <ul class="nav navbar-nav navbar-right">
-                      <li>
+                      <li *ngIf="this.session == undefined; else have_session">
                           <a href="/login">Login</a>
                       </li>
+                      <ng-template #have_session>
+                        <li>
+                          <p href="" id="logoutTag" (click)="Logout()">Logout</p>
+                        </li>
+                      </ng-template>
+
                   </ul>
 
               </div>
