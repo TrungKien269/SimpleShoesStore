@@ -21,7 +21,19 @@ export class AccountService {
   }
   // Code tuần 1
 
-  Logout(){
+  LoginWithFacebook(facebook_id: string) {
+    return this.http.post(this.baseURL + 'social/facebook', {
+      facebook_id: facebook_id
+    });
+  }
+
+  LoginWithGoogle(google_id: string) {
+    return this.http.post(this.baseURL + 'social/google', {
+      google_id: google_id
+    });
+  }
+
+  Logout() {
     sessionStorage.removeItem('account');
     sessionStorage.removeItem('currenPage');
   }

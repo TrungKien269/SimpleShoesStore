@@ -377,3 +377,8 @@ h1 {
   transform: translate(5px, -50%);
   opacity: 1;
 }
+
+.sidebar-wrapper{
+  width: 10%;
+  overflow: unset;
+}

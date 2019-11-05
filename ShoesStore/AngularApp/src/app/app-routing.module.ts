@@ -4,11 +4,13 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { MainComponent } from './components/main/main.component';
 import { ShoesComponent } from './components/shoes/shoes.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent, pathMatch: 'full' },
   { path: 'login', component: LoginComponent, pathMatch: 'full' },
   {  path: 'shoes/:id', component: ShoesComponent, pathMatch: 'full' },
+  {  path: 'profile', component: ProfileComponent, pathMatch: 'full' },
 ];
 // Code tuần 1
 

@@ -6,6 +6,10 @@
   background-image: url('../../../assets/images/sidebar-3.jpg') !important;
 }
 
+.sidebar-wrapper{
+  width: 30%;
+}
+
 .content{
   background-color:#e7e7e7;
 }

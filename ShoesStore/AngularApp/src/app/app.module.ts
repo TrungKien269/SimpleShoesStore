@@ -8,6 +8,23 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { MainComponent } from './components/main/main.component';
 import { ShoesComponent } from './components/shoes/shoes.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from 'ng-social-login-module';
+
+const config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider('595791710812-b26iddsr8lsqntdqrs6cpmpllq65obfd.apps.googleusercontent.com')
+  },
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider('465730364148971')
+  }
+], false);
+
+export function provideConfig() {
+  return config;
+}
 
 @NgModule({
   declarations: [
@@ -15,14 +32,18 @@ import { ShoesComponent } from './components/shoes/shoes.component';
     LoginComponent,
     MainComponent,
     ShoesComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    SocialLoginModule
   ],
-  providers: [],
+  providers: [
+    { provide: AuthServiceConfig, useFactory: provideConfig }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

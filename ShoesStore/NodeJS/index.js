@@ -19,6 +19,7 @@ var categoryController = require('./controllers/categoryController');
 var makerController = require('./controllers/makerController');
 var originController = require('./controllers/originController');
 var supplierController = require('./controllers/supplierController');
+var userController = require('./controllers/userController');
 
 app.use('/accounts', accountController);
 app.use('/shoes', shoesController);
@@ -26,6 +27,7 @@ app.use('/categories', categoryController);
 app.use('/makers', makerController);
 app.use('/origins', originController);
 app.use('/suppliers', supplierController);
+app.use('/users', userController);
 
 app.get('/', (req, res) => {
     res.send("Hello World!");

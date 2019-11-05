@@ -7,6 +7,7 @@ import { AccountService } from '../../services/account.service';
 import { Account } from '../../models/account';
 import { Response } from '../../models/response';
 import { from } from 'rxjs';
+import { SocialLoginModule, SocialUser, GoogleLoginProvider, FacebookLoginProvider, AuthService } from 'ng-social-login-module';
 
 declare var $: any;
 
@@ -17,8 +18,11 @@ declare var $: any;
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public accountService: AccountService, private route: Router) { }
+  constructor(public accountService: AccountService, private route: Router,
+    private socialAuthService: AuthService) { }
+
   errorStr: string;
+  public user: any = SocialUser;
 
   ngOnInit() {
     this.resetForm();
@@ -58,4 +62,39 @@ export class LoginComponent implements OnInit {
     this.accountService.currentAccount.password = password;
   }
   // Code tuần 1
+
+  facebookLogin() {
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID).then((userData) => {
+      this.user = userData;
+      this.accountService.LoginWithFacebook(this.user.id).subscribe((res) => {
+        const response: Response = res as Response;
+        if (!response.status) {
+          this.errorStr = response.message;
+        }
+        else {
+          console.log(response.obj as Account);
+          sessionStorage.setItem('account', (response.obj as Account)._id);
+          this.route.navigate(['/']);
+        }
+      });
+    });
+  }
+
+  googleLogin() {
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((userData) => {
+      this.user = userData;
+      this.accountService.LoginWithGoogle(this.user.id).subscribe((res) => {
+        const response: Response = res as Response;
+        if (!response.status) {
+          this.errorStr = response.message;
+        }
+        else {
+          console.log(response.obj as Account);
+          sessionStorage.setItem('account', (response.obj as Account)._id);
+          this.route.navigate(['/']);
+        }
+      });
+    });
+  }
+
 }
