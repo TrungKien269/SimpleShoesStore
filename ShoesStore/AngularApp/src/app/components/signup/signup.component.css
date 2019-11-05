@@ -1,0 +1,10 @@
+@import '../../../assets/css/signup.css';
+
+.btn{
+  height: 40px;
+  padding: 0 5px 0 5px;
+  width: 20rem;
+  margin-top: 10px;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}

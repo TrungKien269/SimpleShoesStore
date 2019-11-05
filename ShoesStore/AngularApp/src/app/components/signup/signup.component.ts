@@ -4,29 +4,31 @@ import { Router } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 
 import { AccountService } from '../../services/account.service';
+import { UserService } from '../../services/user.service';
 import { Account } from '../../models/account';
+import { User } from '../../models/user';
 import { Response } from '../../models/response';
-import { from } from 'rxjs';
+
 import { SocialLoginModule, SocialUser, GoogleLoginProvider, FacebookLoginProvider, AuthService } from 'ng-social-login-module';
 
 declare var $: any;
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-signup',
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.css']
 })
-export class LoginComponent implements OnInit {
+export class SignupComponent implements OnInit {
 
   constructor(public accountService: AccountService, private route: Router,
-    private socialAuthService: AuthService) { }
+    public userService: UserService, private socialAuthService: AuthService) { }
 
-  errorStr: string;
-  public user: any = SocialUser;
+    errorStr: string;
+    confirm_password: string;
+    user: any = SocialUser;
 
   ngOnInit() {
     this.resetForm();
-    $('#txtUserName').focus();
   }
 
   resetForm(form?: NgForm) {
@@ -43,32 +45,45 @@ export class LoginComponent implements OnInit {
       type: 0,
       status: 1
     };
+    this.userService.currentUser = {
+      _id: null,
+      fullname: '',
+      address: '',
+      mobile_number: '',
+      account_id: null
+    };
   }
 
-  onSubmit(username: string, password: string) {
-    this.accountService.Login(username, password).subscribe((res) => {
+  onSubmit() {
+    this.accountService.SignUp(this.accountService.currentAccount).subscribe((res) => {
       const response: Response = res as Response;
       if (!response.status) {
         this.errorStr = response.message;
       }
       else {
         console.log(response.obj as Account);
+        this.userService.currentUser.account_id = (response.obj as Account)._id;
         sessionStorage.setItem('account', (response.obj as Account)._id);
-        this.route.navigate(['/']);
+
+        this.userService.CreateUser(this.userService.currentUser).subscribe((res) => {
+          const response: Response = res as Response;
+          if (!response.status) {
+            this.errorStr = response.message;
+          }
+          else{
+            this.route.navigate(['/']);
+          }
+        });
       }
     });
   }
 
-  SetAccount(username: string, password: string) {
-    this.accountService.currentAccount.username = username;
-    this.accountService.currentAccount.password = password;
-  }
-  // Code tuần 1
-
-  facebookLogin() {
+  SignUpWithFaceBook() {
     this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID).then((userData) => {
       this.user = userData;
-      this.accountService.LoginWithFacebook(this.user.id).subscribe((res) => {
+      console.log(this.user);
+      this.accountService.currentAccount.facebook_id = this.user.id;
+      this.accountService.SignUp(this.accountService.currentAccount).subscribe((res) => {
         const response: Response = res as Response;
         if (!response.status) {
           this.errorStr = response.message;
@@ -82,10 +97,12 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  googleLogin() {
+  SignUpWithGoogle() {
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).then((userData) => {
       this.user = userData;
-      this.accountService.LoginWithGoogle(this.user.id).subscribe((res) => {
+      console.log(this.user);
+      this.accountService.currentAccount.google_id = this.user.id;
+      this.accountService.SignUp(this.accountService.currentAccount).subscribe((res) => {
         const response: Response = res as Response;
         if (!response.status) {
           this.errorStr = response.message;

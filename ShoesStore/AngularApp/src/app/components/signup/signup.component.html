@@ -1,0 +1,67 @@
+<div class="container">
+  <div class="left-child-div">
+      <img src="../../../assets/images/Nike.png" alt="#" id="logo">
+      <p>Best in the world</p>
+      <div class="container-fluid" style="margin-top: 30px">
+        <div class="row">
+          <div class="col-md-12">
+            <button class="btn btn-primary" style="background-color: #385998; border-color: #385998;"
+            (click)="SignUpWithFaceBook()">
+              <i class="fa fa-facebook"></i>
+              Signup with Facebook
+            </button>
+            <button class="btn btn-primary" style="background-color: #C63D2D; border-color: #C63D2D;"
+            (click)="SignUpWithGoogle()">
+              <i class="fa fa-google"></i>
+              Signup with Google
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12" *ngIf="errorStr != null">
+        <p style="text-align: center" class="alert alert-danger">
+          {{errorStr}}
+        </p>
+    </div>
+  </div>
+  <div class="right-child-div">
+      <p id="Header">SIGN UP</p>
+      <form #signupForm="ngForm" method="post" (ngSubmit)="onSubmit()">
+          <div class="Tupple">
+              <p>UserName</p>
+              <input type="text" name="username" required autocomplete="off"
+              autofocus="autofocus" #username="ngModel"
+              [(ngModel)]="accountService.currentAccount.username">
+          </div>
+          <div class="Tupple">
+              <p>Password</p>
+              <input type="password" name="password" required #password="ngModel"
+              [(ngModel)]="accountService.currentAccount.password">
+          </div>
+          <div class="Tupple">
+              <p>Confirm Password</p>
+              <input type="password" name="cfpassword" required
+              #confirmPassword="ngModel" [(ngModel)]="confirm_password">
+          </div>
+          <div class="Tupple">
+              <p>Full Name</p>
+              <input type="text" name="fullname" required autocomplete="off"
+              #fullname="ngModel" [(ngModel)]="userService.currentUser.fullname">
+          </div>
+          <div class="Tupple">
+              <p>Phone Number</p>
+              <input type="text" name="phonenumber" required autocomplete="off"
+              #mobile_number="ngModel"
+              [(ngModel)]="userService.currentUser.mobile_number">
+          </div>
+          <div class="Tupple">
+            <p>Address</p>
+            <input type="text" name="username" required autocomplete="off"
+            autofocus="autofocus" #address="ngModel"
+            [(ngModel)]="userService.currentUser.address">
+        </div>
+          <input type="submit" value="Sign Up" id="btnSignUp">
+      </form>
+  </div>
+  <img src="../../../assets/images/Nike.png" alt="#" id="logo2">
+</div>

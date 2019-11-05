@@ -37,4 +37,8 @@ export class AccountService {
     sessionStorage.removeItem('account');
     sessionStorage.removeItem('currenPage');
   }
+
+  SignUp(account: Account) {
+    return this.http.post(this.baseURL, account);
+  }
 }

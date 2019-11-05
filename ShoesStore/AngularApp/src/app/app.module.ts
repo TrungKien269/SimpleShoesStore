@@ -9,8 +9,10 @@ import { LoginComponent } from './components/login/login.component';
 import { MainComponent } from './components/main/main.component';
 import { ShoesComponent } from './components/shoes/shoes.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from 'ng-social-login-module';
+import { SignupComponent } from './components/signup/signup.component';
 
+
+import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLoginProvider } from 'ng-social-login-module';
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -33,6 +35,7 @@ export function provideConfig() {
     MainComponent,
     ShoesComponent,
     ProfileComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,

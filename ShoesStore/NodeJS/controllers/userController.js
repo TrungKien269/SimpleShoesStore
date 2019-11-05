@@ -70,4 +70,29 @@ router.get('/account/:account_id', (req, res) => {
     });
 });
 
+router.post('/', (req, res) => {
+    var user = new User({
+        fullname: req.body.fullname,
+        mobile_number: req.body.mobile_number,
+        address: req.body.address,
+        account_id: req.body.account_id
+    });
+    User.collection.insertOne(user, (err, data) => {
+        if(err){
+            res.json({
+                status: false,
+                message: err,
+                obj: null
+            });
+        }
+        else{
+            res.json({
+                status: true,
+                message: "Insert Successfully!",
+                obj: user
+            });
+        }
+    });
+})
+
 module.exports = router;

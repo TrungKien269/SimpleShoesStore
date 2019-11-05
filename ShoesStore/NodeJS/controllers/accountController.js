@@ -110,15 +110,25 @@ router.post('/', (req, res) => {
     var account = new Account({
         username: req.body.username,
         password: md5(req.body.password),
+        facebook_id: req.body.facebook_id,
+        google_id: req.body.google_id,
         type: parseInt(req.body.type),
         status: 1
     });
     Account.collection.insertOne(account, (err, data) => {
         if(err){
-            res.json(err);
+            res.json({
+                status: false,
+                message: err,
+                obj: null
+            });
         }
         else{
-            res.json({message: "Insert Successfully!"});
+            res.json({
+                status: true,
+                message: "Insert Successfully!",
+                obj: account
+            });
         }
     })
 });

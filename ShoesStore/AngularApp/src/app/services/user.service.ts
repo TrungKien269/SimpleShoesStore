@@ -16,4 +16,8 @@ export class UserService {
   GetUserByAccount(account_id: string) {
     return this.http.get(this.baseURL + '/account/' + account_id);
   }
+
+  CreateUser(user: User) {
+    return this.http.post(this.baseURL, user);
+  }
 }

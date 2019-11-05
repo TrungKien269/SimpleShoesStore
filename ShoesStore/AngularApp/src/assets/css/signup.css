@@ -1,6 +1,6 @@
 body
 {
-    background: url('/images/BG2.jpg');
+    background: url('../images/BG2.jpg');
     margin: 0;
     padding: 0;
 }
@@ -8,7 +8,7 @@ body
 .container
 {
     width: 56%;
-    height: 500px;
+    height: 570px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -24,6 +24,7 @@ body
     background: rgb(0, 0, 0, 0.5);
     color: white;
     float: left;
+    margin-left: -2%;
 }
 
 .left-child-div p
@@ -97,7 +98,7 @@ body
     height: auto;
     background-color: inherit;
     outline: none;
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid gray;
     display: inline-block;
     color: darkcyan;
 }
@@ -116,7 +117,7 @@ body
     cursor: pointer;
     height: 40px;
     border: none;
-    background-color: rgba(178, 223, 217, 0.24);
+    background-color: rgba(44, 78, 11, 0.733);
     color: whitesmoke;
 }
 

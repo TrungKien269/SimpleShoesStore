@@ -4,7 +4,7 @@
     <div class="container-login100">
         <div class="wrap-login100 p-t-50 p-b-90">
             <form #loginForm="ngForm" class="login100-form validate-form flex-sb flex-w"
-            id="frmLogin" asp-action="Index" method="post"
+            id="frmLogin" method="post"
             (ngSubmit)="onSubmit(accountService.currentAccount.username,
             accountService.currentAccount.password)" #form="ngForm">
                 <span class="login100-form-title p-b-51">
@@ -48,7 +48,7 @@
                 <label class="label-checkbox100" for="ckb1">Remember me</label>
             </div> -->
         </div>
-                <a href="#"
+                <a href="/signup"
                 style="text-align: center; font-size: 14px; color: white; margin-left: 50%; transform: translateX(-50%)"
                    >Sign Up</a>
                 <div class="container-login100-form-btn m-t-17">
