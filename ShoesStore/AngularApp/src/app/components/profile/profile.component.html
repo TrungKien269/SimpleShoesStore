@@ -1,3 +1,99 @@
-<p>
-  profile works!
-</p>
+<div class="wrapper">
+  <div class="sidebar" data-color="black">
+    <div class="sidebar-wrapper">
+      <div class="logo">
+        <a href="/" class="simple-text">Sneaker World</a>
+      </div>
+
+      <ul class="menu-left">
+        <li>
+          <a href="#">Cart</a>
+        </li>
+        <li>
+          <a href="#">History</a>
+        </li>
+        <li>
+          <a href="/profile">Profile</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+  <div class="main-panel">
+    <nav class="navbar navbar-default navbar-fixed">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="">Shop</a>
+        </div>
+        <div class="navbar-header">
+          <ul class="nav navbar-nav navbar-right">
+            <!-- <li *ngIf="this.session === undefined; else have_session">
+              <a href="/login">Login</a>
+            </li>
+            <ng-template #have_session>
+              <li>
+                <p id="logoutTag" (click)="Logout()">Logout</p>
+              </li>
+            </ng-template> -->
+
+          </ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6">
+          <h2 style="text-align: center">Profile</h2>
+          <div class="col-md-12" *ngIf="errorStr != null">
+              <p style="text-align: center" class="alert alert-danger">
+                {{errorStr}}
+              </p>
+          </div>
+          <form id="updateForm" method="post" (ngSubmit)="onSubmit()"
+          #updateForm="ngForm">
+            <!-- <div asp-validation-summary="ModelOnly" class="text-danger"></div> -->
+            <div class="form-group">
+              <label class="control-label">FullName</label>
+              <input class="form-control" value="{{userService.currentUser.fullname}}"
+              autofocus #fullname="ngModel" name="fullname"
+              [(ngModel)]="userService.currentUser.fullname" />
+              <!-- <span class="text-danger"></span> -->
+            </div>
+            <div class="form-group">
+              <label class="control-label">Mobile Number</label>
+              <input class="form-control" type="text"
+              value="{{userService.currentUser.mobile_number}}"
+              #mobile_number="ngModel" name="mobile_number"
+              [(ngModel)]="userService.currentUser.mobile_number" />
+              <!-- <span asp-validation-for="PhoneNumber" class="text-danger"></span> -->
+            </div>
+            <div class="form-group">
+              <label class="control-label">Address</label>
+              <input class="form-control" type="text"
+              value="{{userService.currentUser.address}}" name="address"
+              #address="ngModel" [(ngModel)]="userService.currentUser.address" />
+              <!-- <span asp-validation-for="Address" class="text-danger"></span> -->
+            </div>
+            <div class="form-group">
+              <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container-fluid">
+
+        <p class="copyright pull-right">
+          &copy;
+          <script>document.write(new Date().getFullYear())</script> <a>SneakerFloat</a>
+          , made with love for a better service
+        </p>
+      </div>
+    </footer>
+  </div>
+</div>

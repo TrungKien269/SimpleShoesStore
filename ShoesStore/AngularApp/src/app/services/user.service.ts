@@ -20,4 +20,8 @@ export class UserService {
   CreateUser(user: User) {
     return this.http.post(this.baseURL, user);
   }
+
+  UpdateUser(user: User, account_id: string) {
+    return this.http.put(this.baseURL + account_id, user);
+  }
 }

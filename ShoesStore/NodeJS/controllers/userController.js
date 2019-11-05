@@ -5,14 +5,14 @@ var { User } = require('../models/users');
 
 router.get('/', (req, res) => {
     User.find((err, doc) => {
-        if(!err){
+        if (!err) {
             res.json(doc);
         }
-        else{
+        else {
             res.json({
                 status: false,
-                message: "Error in retriving Account: " + 
-                JSON.stringify(err, undefined, 2)
+                message: "Error in retriving Account: " +
+                    JSON.stringify(err, undefined, 2)
             })
         }
     });
@@ -20,21 +20,21 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
     User.findById(req.params.id).exec((err, doc) => {
-        if(err){
+        if (err) {
             res.json({
                 status: false,
                 message: err,
                 obj: null
             });
         }
-        else if(!doc){
+        else if (!doc) {
             res.json({
                 status: false,
                 message: 'Can not find a user with this id!',
                 obj: null
             });
         }
-        else{
+        else {
             res.json({
                 status: true,
                 message: 'Success',
@@ -45,22 +45,22 @@ router.get('/:id', (req, res) => {
 });
 
 router.get('/account/:account_id', (req, res) => {
-    User.findOne({account_id: req.params.account_id}).exec((err, doc) => {
-        if(err){
+    User.findOne({ account_id: req.params.account_id }).exec((err, doc) => {
+        if (err) {
             res.json({
                 status: false,
                 message: err,
                 obj: null
             });
         }
-        else if(!doc){
+        else if (!doc) {
             res.json({
                 status: false,
                 message: 'Can not find a user with this account_id!',
                 obj: null
             });
         }
-        else{
+        else {
             res.json({
                 status: true,
                 message: 'Success',
@@ -78,14 +78,14 @@ router.post('/', (req, res) => {
         account_id: req.body.account_id
     });
     User.collection.insertOne(user, (err, data) => {
-        if(err){
+        if (err) {
             res.json({
                 status: false,
                 message: err,
                 obj: null
             });
         }
-        else{
+        else {
             res.json({
                 status: true,
                 message: "Insert Successfully!",
@@ -94,5 +94,46 @@ router.post('/', (req, res) => {
         }
     });
 })
+
+router.put('/:account_id', (req, res) => {
+    User.findOne({ account_id: req.params.account_id }).exec((err, doc) => {
+        if (err) {
+            res.json({
+                status: false,
+                message: err,
+                obj: null
+            });
+        }
+        else if (!doc) {
+            res.json({
+                status: false,
+                message: 'Can not find a user with this account_id!',
+                obj: null
+            });
+        }
+        else {
+            var user = doc;
+            user.fullname = req.body.fullname;
+            user.mobile_number = req.body.mobile_number;
+            user.address = req.body.address;
+            user.save((err, doc) => {
+                if (err) {
+                    res.json({
+                        status: false,
+                        message: err,
+                        obj: null
+                    });
+                }
+                else {
+                    res.json({
+                        status: true,
+                        message: 'Success',
+                        obj: user
+                    });
+                }
+            });
+        }
+    });
+});
 
 module.exports = router;

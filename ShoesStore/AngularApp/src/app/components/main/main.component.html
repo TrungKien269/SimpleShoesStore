@@ -12,7 +12,10 @@
             <li>
                 <a href="#">History</a>
             </li>
-            <li>
+            <li *ngIf="this.session === null">
+                <a href="/login">Profile</a>
+            </li>
+            <li *ngIf="this.session != null">
                 <a href="/profile">Profile</a>
             </li>
         </ul>
