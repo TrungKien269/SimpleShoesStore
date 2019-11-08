@@ -10,4 +10,4 @@ var Account = mongoose.model('accounts', {
 });
 
 module.exports = { Account };
-// Code tuần 1
+// Code tuần 2

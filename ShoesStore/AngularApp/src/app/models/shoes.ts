@@ -2,9 +2,9 @@ export class Shoes {
   _id: string;
   name: string;
   designer: string;
-  maker_id: string;
-  category_id: string;
-  origin_id: string;
+  maker_id: any;
+  category_id: any;
+  origin_id: any;
   shoes_sizes: number[];
   shoes_colors: string[];
   shoes_prices: number[];

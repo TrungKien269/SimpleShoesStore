@@ -9,7 +9,8 @@ import { Account } from '../../models/account';
 import { User } from '../../models/user';
 import { Response } from '../../models/response';
 
-import { SocialLoginModule, SocialUser, GoogleLoginProvider, FacebookLoginProvider, AuthService } from 'ng-social-login-module';
+import { SocialLoginModule, SocialUser, GoogleLoginProvider, FacebookLoginProvider,
+  AuthService } from 'ng-social-login-module';
 
 declare var $: any;
 

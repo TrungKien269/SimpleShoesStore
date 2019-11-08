@@ -7,7 +7,8 @@ import { AccountService } from '../../services/account.service';
 import { Account } from '../../models/account';
 import { Response } from '../../models/response';
 import { from } from 'rxjs';
-import { SocialLoginModule, SocialUser, GoogleLoginProvider, FacebookLoginProvider, AuthService } from 'ng-social-login-module';
+import { SocialLoginModule, SocialUser, GoogleLoginProvider, FacebookLoginProvider,
+  AuthService } from 'ng-social-login-module';
 
 declare var $: any;
 
@@ -98,5 +99,6 @@ export class LoginComponent implements OnInit {
       });
     });
   }
+  // Code tuần 2
 
 }

@@ -6,9 +6,12 @@
           </div>
 
           <ul class="menu-left">
-            <li>
-                <a href="#">Cart</a>
+            <li *ngIf="this.session === null">
+                <a href="/login">Cart</a>
             </li>
+            <li *ngIf="this.session != null">
+              <a href="/cart">Cart</a>
+          </li>
             <li>
                 <a href="#">History</a>
             </li>

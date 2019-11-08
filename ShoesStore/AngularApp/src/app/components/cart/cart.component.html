@@ -1,0 +1,84 @@
+<div class="wrapper">
+  <div class="sidebar" data-color="black">
+    <div class="sidebar-wrapper">
+      <div class="logo">
+        <a href="/" class="simple-text">Sneaker World</a>
+      </div>
+
+      <ul class="menu-left">
+        <li>
+          <a href="/cart">Cart</a>
+        </li>
+        <li>
+          <a href="#">History</a>
+        </li>
+        <li>
+          <a href="/profile">Profile</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+  <div class="main-panel">
+    <nav class="navbar navbar-default navbar-fixed">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Shop</a>
+        </div>
+        <div class="navbar-header">
+          <ul class="nav navbar-nav navbar-right">
+
+          </ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="row">
+        <h3>Your Cart</h3>
+        <div class="container-fluid">
+          <div class="col-md-12">
+            <table class="table">
+              <tr>
+                <th style="font-weight: inherit" scope="col">Shoes</th>
+                <th style="font-weight: inherit" scope="col">Price</th>
+                <th style="font-weight: inherit" scope="col">Quantity</th>
+              </tr>
+              <tr *ngFor="let shoes of this.shoesArr">
+                <td style="font-weight: lighter">{{shoes.shoes_id.name}}</td>
+                <td style="font-weight: lighter">{{shoes.shoes_id.shoes_prices[0]}}$</td>
+                <td style="font-weight: lighter">
+                  <input type="number" class="form-control txtQuantity" min="1"
+                  value="{{shoes.quantity}}"
+                  (change)="onChange($event, shoes.shoes_id._id)">
+                </td>
+                <td>
+                  <button type="button" class="btn btn-info btn-danger"
+                  (click)="RemoveShoes(shoes.shoes_id._id)">
+                    Remove
+                  </button>
+                </td>
+              </tr>
+            </table>
+            <button type="button" class="btn btn-info btn-default">
+              <a >Buy</a>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container-fluid">
+
+        <p class="copyright pull-right">
+          &copy;
+          <script>document.write(new Date().getFullYear())</script> <a>SneakerFloat</a>
+          , made with love for a better service
+        </p>
+      </div>
+    </footer>
+  </div>
+</div>

@@ -18,7 +18,9 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    Shoes.findById(req.params.id).exec((err, doc) => {
+    Shoes.findById(req.params.id)
+    .populate('maker_id').populate('category_id').populate('origin_id')
+    .exec((err, doc) => {
         if(err){
             res.json({
                 status: false,
