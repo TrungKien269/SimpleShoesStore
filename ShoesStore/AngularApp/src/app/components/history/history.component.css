@@ -55,13 +55,3 @@ ul.menu-left > li:hover > a{
 #logoutTag:hover{
   color: blue;
 }
-
-.txtQuantity{
-  width: 30%;
-}
-
-#lbTotal{
-  text-align: center;
-  font-size: 24px;
-  font-weight: 500;
-}

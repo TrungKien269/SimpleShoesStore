@@ -26,6 +26,18 @@ export class CartService {
   }
 
   RemoveShoes(account_id: string, shoes_id: string){
-    return this.http.delete(this.baseURL + account_id + '/' + shoes_id);
+    return this.http.delete(this.baseURL + 'item/' + account_id + '/' + shoes_id);
+  }
+
+  RemoveAll(account_id: string) {
+    return this.http.delete(this.baseURL + 'all/' + account_id);
+  }
+
+  AddToCart(account_id: string, shoes_id: string) {
+    return this.http.post(this.baseURL, {
+      account_id: account_id,
+      shoes_id: shoes_id,
+      quantity: 1
+    });
   }
 }

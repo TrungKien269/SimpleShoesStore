@@ -21,6 +21,7 @@ var originController = require('./controllers/originController');
 var supplierController = require('./controllers/supplierController');
 var userController = require('./controllers/userController');
 var cartController = require('./controllers/cartController');
+var orderController = require('./controllers/orderController');
 
 app.use('/accounts', accountController);
 app.use('/shoes', shoesController);
@@ -30,6 +31,7 @@ app.use('/origins', originController);
 app.use('/suppliers', supplierController);
 app.use('/users', userController);
 app.use('/carts', cartController);
+app.use('/orders', orderController);
 
 app.get('/', (req, res) => {
     res.send("Hello World!");

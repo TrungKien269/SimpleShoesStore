@@ -1,0 +1,86 @@
+<div class="wrapper">
+  <div class="sidebar" data-color="black">
+    <div class="sidebar-wrapper">
+      <div class="logo">
+        <a href="/" class="simple-text">Sneaker World</a>
+      </div>
+
+      <ul class="menu-left">
+        <li>
+          <a href="/cart">Cart</a>
+        </li>
+        <li>
+          <a href="#">History</a>
+        </li>
+        <li>
+          <a href="/profile">Profile</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+
+  <div class="main-panel">
+    <nav class="navbar navbar-default navbar-fixed">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Shop</a>
+        </div>
+        <div class="navbar-header">
+          <ul class="nav navbar-nav navbar-right">
+
+          </ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <h3>Orders History</h3>
+      <div class="row" *ngFor="let item of orders">
+        <h4>{{item.datetime}}</h4>
+        <div class="container-fluid">
+          <div class="col-md-12">
+            <table class="table">
+              <tr>
+                <th style="font-weight: bold" scope="col">Shoes</th>
+                <th style="font-weight: bold" scope="col">Price</th>
+                <th style="font-weight: bold" scope="col">Quantity</th>
+                <th style="font-weight: bold" scope="col">Subtotal</th>
+              </tr>
+              <tr *ngFor="let detail of item.details">
+                <td style="font-weight: lighter">{{detail.shoes_id.name}}</td>
+                <td style="font-weight: lighter">
+                  {{detail.shoes_id.shoes_prices[1]}} $
+                </td>
+                <td style="font-weight: lighter">{{detail.quantity}}</td>
+                <td style="font-weight: lighter">
+                  {{detail.shoes_id.shoes_prices[1] * detail.quantity}} $
+                </td>
+              </tr>
+              <tr>
+                <td style="font-weight: lighter"></td>
+                <td style="font-weight: lighter"></td>
+                <td style="font-weight: lighter"></td>
+                <td style="font-weight: lighter">
+                  <label style="font-weight: bold"><h4>Total: {{item.total}} $</h4></label>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="container-fluid">
+
+        <p class="copyright pull-right">
+          &copy;
+          <script>document.write(new Date().getFullYear())</script> <a>SneakerFloat</a>
+          , made with love for a better service
+        </p>
+      </div>
+    </footer>
+  </div>
+</div>

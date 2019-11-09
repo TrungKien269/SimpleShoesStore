@@ -7,13 +7,13 @@
 
             <ul class="menu-left">
               <li>
-                  <a href="#">Cart</a>
+                <a (click)="Cart($event)">Cart</a>
               </li>
               <li>
-                  <a href="#">History</a>
+                <a (click)="History($event)">History</a>
               </li>
               <li>
-                  <a href="#">Edit Profile</a>
+                <a (click)="Profile($event)">Profile</a>
               </li>
           </ul>
         </div>
@@ -198,7 +198,7 @@
                     style="z-index: 1; position: relative; border-bottom: none; border-left: none; border-right: none; min-height: 45px;">
                     <button class="goat-button secondary align-center-justify-center undefined" type="button"
                       style="display: block; width: 50%; border-right: 1px solid black;">
-                      <a href="/">Select</a>
+                      <a href="#" (click)="SelectShoes($event)">Select</a>
                     </button>
                   </div>
                 </div>

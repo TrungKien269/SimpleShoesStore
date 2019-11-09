@@ -32,6 +32,39 @@ export class MainComponent implements OnInit {
 
   Logout() {
     this.accountService.Logout();
-    this.session = undefined;
+    this.session = null;
+  }
+
+  Cart(e: any) {
+    e.preventDefault();
+    if(this.session === null) {
+      sessionStorage.setItem('currenPage', '/cart');
+      this.route.navigate(['/login']);
+    }
+    else {
+      this.route.navigate(['/cart']);
+    }
+  }
+
+  Profile(e: any) {
+    e.preventDefault();
+    if(this.session === null) {
+      sessionStorage.setItem('currenPage', '/profile');
+      this.route.navigate(['/login']);
+    }
+    else {
+      this.route.navigate(['/profile']);
+    }
+  }
+
+  History(e: any) {
+    e.preventDefault();
+    if(this.session === null) {
+      sessionStorage.setItem('currenPage', '/history');
+      this.route.navigate(['/login']);
+    }
+    else {
+      this.route.navigate(['/history']);
+    }
   }
 }

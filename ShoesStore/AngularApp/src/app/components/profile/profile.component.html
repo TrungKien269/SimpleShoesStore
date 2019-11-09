@@ -7,13 +7,13 @@
 
       <ul class="menu-left">
         <li>
-          <a href="/cart">Cart</a>
+          <a [routerLink]="['/cart']">Cart</a>
         </li>
         <li>
-          <a href="#">History</a>
+          <a [routerLink]="['/history']">History</a>
         </li>
         <li>
-          <a href="/profile">Profile</a>
+          <a [routerLink]="['/profile']">Profile</a>
         </li>
       </ul>
     </div>
@@ -48,33 +48,28 @@
         <div class="col-sm-6">
           <h2 style="text-align: center">Profile</h2>
           <div class="col-md-12" *ngIf="errorStr != null">
-              <p style="text-align: center" class="alert alert-danger">
-                {{errorStr}}
-              </p>
+            <p style="text-align: center" class="alert alert-danger">
+              {{errorStr}}
+            </p>
           </div>
-          <form id="updateForm" method="post" (ngSubmit)="onSubmit()"
-          #updateForm="ngForm">
+          <form id="updateForm" method="post" (ngSubmit)="onSubmit()" #updateForm="ngForm">
             <!-- <div asp-validation-summary="ModelOnly" class="text-danger"></div> -->
             <div class="form-group">
               <label class="control-label">FullName</label>
-              <input class="form-control" value="{{userService.currentUser.fullname}}"
-              autofocus #fullname="ngModel" name="fullname"
-              [(ngModel)]="userService.currentUser.fullname" />
+              <input class="form-control" value="{{userService.currentUser.fullname}}" autofocus #fullname="ngModel"
+                name="fullname" [(ngModel)]="userService.currentUser.fullname" />
               <!-- <span class="text-danger"></span> -->
             </div>
             <div class="form-group">
               <label class="control-label">Mobile Number</label>
-              <input class="form-control" type="text"
-              value="{{userService.currentUser.mobile_number}}"
-              #mobile_number="ngModel" name="mobile_number"
-              [(ngModel)]="userService.currentUser.mobile_number" />
+              <input class="form-control" type="text" value="{{userService.currentUser.mobile_number}}"
+                #mobile_number="ngModel" name="mobile_number" [(ngModel)]="userService.currentUser.mobile_number" />
               <!-- <span asp-validation-for="PhoneNumber" class="text-danger"></span> -->
             </div>
             <div class="form-group">
               <label class="control-label">Address</label>
-              <input class="form-control" type="text"
-              value="{{userService.currentUser.address}}" name="address"
-              #address="ngModel" [(ngModel)]="userService.currentUser.address" />
+              <input class="form-control" type="text" value="{{userService.currentUser.address}}" name="address"
+                #address="ngModel" [(ngModel)]="userService.currentUser.address" />
               <!-- <span asp-validation-for="Address" class="text-danger"></span> -->
             </div>
             <div class="form-group">

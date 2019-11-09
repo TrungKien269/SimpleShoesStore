@@ -1,94 +1,88 @@
 <div class="wrapper">
   <div class="sidebar" data-color="black">
-      <div class="sidebar-wrapper">
-          <div class="logo">
-              <a href="/" class="simple-text">Sneaker World</a>
-          </div>
-
-          <ul class="menu-left">
-            <li *ngIf="this.session === null">
-                <a href="/login">Cart</a>
-            </li>
-            <li *ngIf="this.session != null">
-              <a href="/cart">Cart</a>
-          </li>
-            <li>
-                <a href="#">History</a>
-            </li>
-            <li *ngIf="this.session === null">
-                <a href="/login">Profile</a>
-            </li>
-            <li *ngIf="this.session != null">
-                <a href="/profile">Profile</a>
-            </li>
-        </ul>
+    <div class="sidebar-wrapper">
+      <div class="logo">
+        <a href="/" class="simple-text">Sneaker World</a>
       </div>
+
+      <ul class="menu-left">
+        <li>
+          <a (click)="Cart($event)">Cart</a>
+        </li>
+        <li>
+          <a (click)="History($event)">History</a>
+        </li>
+        <li>
+          <a (click)="Profile($event)">Profile</a>
+        </li>
+      </ul>
+    </div>
   </div>
 
 
   <div class="main-panel">
-      <nav class="navbar navbar-default navbar-fixed">
-          <div class="container-fluid">
-              <div class="navbar-header">
-                  <a class="navbar-brand" href="">Shop</a>
-              </div>
-              <div class="navbar-header">
-                  <ul class="nav navbar-nav navbar-right">
-                      <li *ngIf="this.session == undefined; else have_session">
-                          <a href="/login">Login</a>
-                      </li>
-                      <ng-template #have_session>
-                        <li>
-                          <p href="" id="logoutTag" (click)="Logout()">Logout</p>
-                        </li>
-                      </ng-template>
+    <nav class="navbar navbar-default navbar-fixed">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="">Shop</a>
+        </div>
+        <div class="navbar-header">
+          <ul class="nav navbar-nav navbar-right">
+            <li *ngIf="this.session == undefined; else have_session">
+              <a href="/login">Login</a>
+            </li>
+            <ng-template #have_session>
+              <li>
+                <p href="" id="logoutTag" (click)="Logout()">Logout</p>
+              </li>
+            </ng-template>
 
-                  </ul>
+          </ul>
 
+        </div>
+      </div>
+    </nav>
+
+    <div class="content">
+      <div class="container-fluid">
+        <div class="example-1 card" style="width: 300px;height: 300px; display: contents"
+          *ngFor="let shoes of ListShoes">
+          <div class="wrapper" style="height: 250px;width: 300px">
+            <img src="../../../assets/images/shoes/{{shoes._id}}.jpeg" alt="img not available"
+              [ngStyle]="{'width': '80%'}" />
+            <div class="date">
+              <span class="day">
+                <script>12</script>
+              </span>
+              <span class="month">NEW</span>
+              <span class="year">2019</span>
+            </div>
+            <div class="data">
+              <div class="content" style="height: 120px;">
+                <span class="title" style="font-size: 20px">
+                  {{shoes.shoes_prices[1]}}$
+                </span>
+                <h4 class="title">
+                  <a href="/shoes/{{shoes._id}}">{{shoes.name}}</a>
+                </h4>
+                <label for="show-menu" class="menu-button">
+                  <span></span></label>
               </div>
+              <input type="checkbox" id="show-menu" />
+            </div>
           </div>
-      </nav>
-
-      <div class="content">
-          <div class="container-fluid">
-              <div class="example-1 card" style="width: 300px;height: 300px; display: contents"
-              *ngFor="let shoes of ListShoes">
-              <div class="wrapper" style="height: 250px;width: 300px">
-                  <img src="../../../assets/images/shoes/{{shoes._id}}.jpeg" alt="img not available"
-                  [ngStyle]="{'width': '80%'}" />
-                  <div class="date">
-                      <span class="day">
-                          <script>12</script>
-                      </span>
-                      <span class="month">NEW</span>
-                      <span class="year">2019</span>
-                  </div>
-                  <div class="data">
-                      <div class="content" style="height: 120px;">
-                          <span class="title" style="font-size: 20px">
-                            {{shoes.shoes_prices[1]}}$
-                          </span>
-                          <h4 class="title">
-                              <a href="/shoes/{{shoes._id}}">{{shoes.name}}</a>
-                          </h4>
-                          <label for="show-menu" class="menu-button">
-                            <span></span></label>
-                      </div>
-                      <input type="checkbox" id="show-menu" />
-                  </div>
-              </div>
-          </div>
+        </div>
       </div>
 
       <footer class="footer">
-          <div class="container-fluid">
+        <div class="container-fluid">
 
-              <p class="copyright pull-right">
-                  &copy;
-                  <script>document.write(new Date().getFullYear())</script> <a>SneakerFloat</a>
-                  , made with love for a better service
-              </p>
-          </div>
+          <p class="copyright pull-right">
+            &copy;
+            <script>document.write(new Date().getFullYear())</script> <a>SneakerFloat</a>
+            , made with love for a better service
+          </p>
+        </div>
       </footer>
+    </div>
   </div>
-</div>

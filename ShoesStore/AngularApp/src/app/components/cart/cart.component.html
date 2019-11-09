@@ -7,13 +7,13 @@
 
       <ul class="menu-left">
         <li>
-          <a href="/cart">Cart</a>
+          <a [routerLink]="['/cart']">Cart</a>
         </li>
         <li>
-          <a href="#">History</a>
+          <a [routerLink]="['/history']">History</a>
         </li>
         <li>
-          <a href="/profile">Profile</a>
+          <a [routerLink]="['/profile']">Profile</a>
         </li>
       </ul>
     </div>
@@ -45,25 +45,36 @@
                 <th style="font-weight: inherit" scope="col">Shoes</th>
                 <th style="font-weight: inherit" scope="col">Price</th>
                 <th style="font-weight: inherit" scope="col">Quantity</th>
+                <th style="font-weight: inherit" scope="col">Subtotal</th>
               </tr>
               <tr *ngFor="let shoes of this.shoesArr">
-                <td style="font-weight: lighter">{{shoes.shoes_id.name}}</td>
-                <td style="font-weight: lighter">{{shoes.shoes_id.shoes_prices[0]}}$</td>
                 <td style="font-weight: lighter">
-                  <input type="number" class="form-control txtQuantity" min="1"
-                  value="{{shoes.quantity}}"
-                  (change)="onChange($event, shoes.shoes_id._id)">
+                  <a [routerLink]="['/shoes/', shoes.shoes_id._id]" style="color: black">
+                    {{shoes.shoes_id.name}}</a>
                 </td>
+                <td style="font-weight: lighter">{{shoes.shoes_id.shoes_prices[1]}} $</td>
+                <td style="font-weight: lighter">
+                  <input type="number" class="form-control txtQuantity" min="1" value="{{shoes.quantity}}"
+                    (change)="onChange($event, shoes.shoes_id._id)">
+                </td>
+                <td style="font-weight: lighter">
+                  {{shoes.shoes_id.shoes_prices[1] * shoes.quantity}} $</td>
                 <td>
-                  <button type="button" class="btn btn-info btn-danger"
-                  (click)="RemoveShoes(shoes.shoes_id._id)">
+                  <button type="button" class="btn btn-info btn-danger" (click)="RemoveShoes(shoes.shoes_id._id)">
                     Remove
                   </button>
                 </td>
               </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Total <p id="lbTotal">{{total}} $</p>
+                </td>
+              </tr>
             </table>
-            <button type="button" class="btn btn-info btn-default">
-              <a >Buy</a>
+            <button type="button" class="btn btn-info btn-default" (click)="BuyShoes()">
+              Buy
             </button>
           </div>
         </div>

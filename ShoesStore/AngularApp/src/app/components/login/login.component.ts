@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
       else {
         console.log(response.obj as Account);
         sessionStorage.setItem('account', (response.obj as Account)._id);
-        this.route.navigate(['/']);
+        this.route.navigate([sessionStorage.getItem('currenPage')]);
       }
     });
   }
@@ -77,7 +77,7 @@ export class LoginComponent implements OnInit {
         else {
           console.log(response.obj as Account);
           sessionStorage.setItem('account', (response.obj as Account)._id);
-          this.route.navigate(['/']);
+          this.route.navigate([sessionStorage.getItem('currenPage')]);
         }
       });
     });
@@ -94,7 +94,7 @@ export class LoginComponent implements OnInit {
         else {
           console.log(response.obj as Account);
           sessionStorage.setItem('account', (response.obj as Account)._id);
-          this.route.navigate(['/']);
+          this.route.navigate([sessionStorage.getItem('currenPage')]);
         }
       });
     });
