@@ -54,16 +54,25 @@ router.post('/', (req, res) => {
         origin_id: req.body.origin_id,
         shoes_sizes: req.body.shoes_sizes,
         shoes_colors: req.body.shoes_colors,
+        shoes_prices: req.body.shoes_prices,
         release_date: req.body.release_date,
         status: 1
     });
     console.log(shoes);
     Shoes.collection.insertOne(shoes, (err, doc) => {
         if(err){
-            res.json(err);
+            res.json({
+                status: false,
+                message: err,
+                obj: null
+            });
         }
         else{
-            res.json({message: "Insert Successfully!"});
+            res.json({
+                status: true,
+                message: "Insert Successfully!",
+                obj: shoes
+            });
         }
     })
 });

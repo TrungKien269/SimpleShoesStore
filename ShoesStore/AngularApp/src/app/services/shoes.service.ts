@@ -21,5 +21,8 @@ export class ShoesService {
   GetShoes(id: string) {
     return this.http.get(this.baseURL + id);
   }
-   // Code tuần 1
+
+  CreateShoes(shoes: Shoes) {
+    return this.http.post(this.baseURL, shoes);
+  }
 }

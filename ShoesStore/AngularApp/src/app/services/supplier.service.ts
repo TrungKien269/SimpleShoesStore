@@ -13,6 +13,10 @@ export class SupplierService {
 
   constructor(private http: HttpClient) { }
 
+  GetAll() {
+    return this.http.get(this.baseURL);
+  }
+
   GetSupplier(id: string) {
     return this.http.get(this.baseURL + id);
   }

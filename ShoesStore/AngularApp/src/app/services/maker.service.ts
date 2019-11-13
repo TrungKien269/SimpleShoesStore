@@ -13,6 +13,10 @@ export class MakerService {
 
   constructor(private http: HttpClient) { }
 
+  GetAll() {
+    return this.http.get(this.baseURL);
+  }
+
   GetMaker(id: string) {
     return this.http.get(this.baseURL + id);
   }

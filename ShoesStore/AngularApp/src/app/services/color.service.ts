@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Origin } from '../models/origin';
+import { Color } from '../models/color';
 
 @Injectable({
   providedIn: 'root'
 })
-export class OriginService {
+export class ColorService {
 
-  currentOrigin: Origin;
-  readonly baseURL = 'http://localhost:3000/origins/';
+  currentColor: Color;
+  readonly baseURL = 'http://localhost:3000/colors/';
 
   constructor(private http: HttpClient) { }
 
@@ -17,7 +17,7 @@ export class OriginService {
     return this.http.get(this.baseURL);
   }
 
-  GetOrigin(id: string) {
+  GetMaker(id: string) {
     return this.http.get(this.baseURL + id);
   }
 }

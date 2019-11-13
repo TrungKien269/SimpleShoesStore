@@ -7,8 +7,10 @@ import { AccountService } from '../../services/account.service';
 import { Account } from '../../models/account';
 import { Response } from '../../models/response';
 import { from } from 'rxjs';
-import { SocialLoginModule, SocialUser, GoogleLoginProvider, FacebookLoginProvider,
-  AuthService } from 'ng-social-login-module';
+import {
+  SocialLoginModule, SocialUser, GoogleLoginProvider, FacebookLoginProvider,
+  AuthService
+} from 'ng-social-login-module';
 
 declare var $: any;
 
@@ -53,9 +55,15 @@ export class LoginComponent implements OnInit {
         this.errorStr = response.message;
       }
       else {
-        console.log(response.obj as Account);
-        sessionStorage.setItem('account', (response.obj as Account)._id);
-        this.route.navigate([sessionStorage.getItem('currenPage')]);
+        const type: Number = (response.obj as Account).type;
+        if (type === 1) {
+          sessionStorage.setItem('account', (response.obj as Account)._id);
+          this.route.navigate(['admin']);
+        }
+        else {
+          sessionStorage.setItem('account', (response.obj as Account)._id);
+          this.route.navigate([sessionStorage.getItem('currenPage')]);
+        }
       }
     });
   }

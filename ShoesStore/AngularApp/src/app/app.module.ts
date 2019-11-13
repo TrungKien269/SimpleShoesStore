@@ -10,12 +10,14 @@ import { MainComponent } from './components/main/main.component';
 import { ShoesComponent } from './components/shoes/shoes.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { CartComponent } from './components/cart/cart.component';
+import { HistoryComponent } from './components/history/history.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { CreateshoesComponent } from './components/createshoes/createshoes.component';
 
 
 import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider,
   FacebookLoginProvider } from 'ng-social-login-module';
-import { CartComponent } from './components/cart/cart.component';
-import { HistoryComponent } from './components/history/history.component';
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -41,6 +43,8 @@ export function provideConfig() {
     SignupComponent,
     CartComponent,
     HistoryComponent,
+    AdminComponent,
+    CreateshoesComponent,
   ],
   imports: [
     BrowserModule,

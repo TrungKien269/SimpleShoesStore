@@ -13,6 +13,10 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
+  GetAll() {
+    return this.http.get(this.baseURL);
+  }
+
   GetCategory(id: string) {
     return this.http.get(this.baseURL + id);
   }

@@ -1,10 +1,10 @@
 const express = require('express');
 var router = express.Router();
 var ObjectId = require('mongoose').Types.ObjectId;
-var { Category } = require('../models/categories');
+var { Color } = require('../models/colors');
 
 router.get('/', (req, res) => {
-    Category.find((err, doc) => {
+    Color.find((err, doc) => {
         if(!err){
             res.json({
                 status: true,
@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-    Category.findById(req.params.id).exec((err, doc) => {
+    Color.findById(req.params.id).exec((err, doc) => {
         if(err){
             res.json({
                 status: false,
@@ -34,7 +34,7 @@ router.get('/:id', (req, res) => {
         else if(!doc){
             res.json({
                 status: false,
-                message: 'Can not find a category with this id!',
+                message: 'Can not find a color with this id!',
                 obj: null
             });
         }
@@ -46,23 +46,6 @@ router.get('/:id', (req, res) => {
             });
         }
     });
-});
-
-router.get('/:id')
-
-router.post('/', (req, res) => {
-    var category = new Category({
-        name: req.body.name,
-        description: req.body.description
-    });
-    Category.collection.insertOne(category, (err, doc) => {
-        if(err){
-            res.json(err);
-        }
-        else{
-            res.json({message: "Insert Successfully!"});
-        }
-    })
 });
 
 module.exports = router;

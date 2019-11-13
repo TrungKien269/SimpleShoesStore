@@ -6,14 +6,18 @@ var { Supplier } = require('../models/suplliers');
 router.get('/', (req, res) => {
     Supplier.find((err, doc) => {
         if(!err){
-            res.json(doc);
+            res.json({
+                status: true,
+                message: "Success",
+                obj: doc
+            })
         }
         else{
             res.json({
                 status: false,
-                message: "Error in retriving Account: " + 
-                JSON.stringify(err, undefined, 2)
-            })
+                message: err,
+                obj: null
+            });
         }
     });
 });

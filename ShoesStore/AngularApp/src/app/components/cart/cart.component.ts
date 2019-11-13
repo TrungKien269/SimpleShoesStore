@@ -116,6 +116,7 @@ export class CartComponent implements OnInit {
       }
       else {
         alert('Buy successfully');
+        this.shoesArr = [];
       }
     });
   }

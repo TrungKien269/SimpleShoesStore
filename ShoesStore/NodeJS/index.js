@@ -22,6 +22,9 @@ var supplierController = require('./controllers/supplierController');
 var userController = require('./controllers/userController');
 var cartController = require('./controllers/cartController');
 var orderController = require('./controllers/orderController');
+var colorController = require('./controllers/colorController');
+var sizeController = require('./controllers/sizeController');
+var uploadController = require('./controllers/uploadController');
 
 app.use('/accounts', accountController);
 app.use('/shoes', shoesController);
@@ -32,6 +35,12 @@ app.use('/suppliers', supplierController);
 app.use('/users', userController);
 app.use('/carts', cartController);
 app.use('/orders', orderController);
+app.use('/colors', colorController);
+app.use('/sizes', sizeController);
+app.use('/upload', uploadController);
+
+app.use(express.static('public'));
+app.use('/images/shoes', express.static(__dirname + '/public/images/shoes'));
 
 app.get('/', (req, res) => {
     res.send("Hello World!");
