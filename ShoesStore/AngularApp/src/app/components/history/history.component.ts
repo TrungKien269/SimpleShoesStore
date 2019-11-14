@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { OrderService } from '../../services/order.service';
+import { AuthService } from '../../services/auth.service';
 
 import { Order } from '../../models/order';
 import { OrderDetail } from '../../models/order-detail';
@@ -14,18 +15,29 @@ import { Response } from '../../models/response';
 })
 export class HistoryComponent implements OnInit {
 
-  constructor(private route: Router, public orderService: OrderService) { }
+  constructor(private route: Router, public orderService: OrderService,
+    public authService: AuthService) { }
 
   session: string;
   response: Response;
   orders: Order[];
 
   ngOnInit() {
-    this.session = sessionStorage.getItem('account');
-    this.orderService.GetOrders(this.session).subscribe((res) => {
-      this.response = res as Response;
-      this.orders = this.response.obj as Order[];
-      console.log(this.orders);
+    this.authService.validate().subscribe((res) => {
+      const response: Response = res as Response;
+      if (response.status === false) {
+        alert(response.message);
+        sessionStorage.setItem('currentPage', '/history');
+        this.route.navigate(['/login']);
+      }
+      else {
+        this.session = sessionStorage.getItem('account');
+        this.orderService.GetOrders(this.session).subscribe((res) => {
+          this.response = res as Response;
+          this.orders = this.response.obj as Order[];
+          // console.log(this.orders);
+        });
+      }
     });
   }
 

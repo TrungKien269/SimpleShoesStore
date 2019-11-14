@@ -37,34 +37,40 @@ export class MainComponent implements OnInit {
 
   Cart(e: any) {
     e.preventDefault();
-    if(this.session === null) {
-      sessionStorage.setItem('currenPage', '/cart');
-      this.route.navigate(['/login']);
-    }
-    else {
-      this.route.navigate(['/cart']);
-    }
+    sessionStorage.setItem('currentPage', '/cart');
+    this.route.navigate(['/cart']);
+    // if(this.session === null) {
+    //   sessionStorage.setItem('currenPage', '/cart');
+    //   this.route.navigate(['/login']);
+    // }
+    // else {
+    //   this.route.navigate(['/cart']);
+    // }
   }
 
   Profile(e: any) {
     e.preventDefault();
-    if(this.session === null) {
-      sessionStorage.setItem('currenPage', '/profile');
-      this.route.navigate(['/login']);
-    }
-    else {
-      this.route.navigate(['/profile']);
-    }
+    sessionStorage.setItem('currentPage', '/profile');
+    this.route.navigate(['/profile']);
+    // if(this.session === null) {
+    //   sessionStorage.setItem('currenPage', '/profile');
+    //   this.route.navigate(['/login']);
+    // }
+    // else {
+    //   this.route.navigate(['/profile']);
+    // }
   }
 
   History(e: any) {
     e.preventDefault();
-    if(this.session === null) {
-      sessionStorage.setItem('currenPage', '/history');
-      this.route.navigate(['/login']);
-    }
-    else {
-      this.route.navigate(['/history']);
-    }
+    sessionStorage.setItem('currentPage', '/history');
+    this.route.navigate(['/history']);
+    // if(this.session === null) {
+    //   sessionStorage.setItem('currenPage', '/history');
+    //   this.route.navigate(['/login']);
+    // }
+    // else {
+    //   this.route.navigate(['/history']);
+    // }
   }
 }

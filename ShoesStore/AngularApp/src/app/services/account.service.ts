@@ -34,8 +34,8 @@ export class AccountService {
   }
 
   Logout() {
-    sessionStorage.removeItem('account');
-    sessionStorage.removeItem('currenPage');
+    sessionStorage.clear();
+    sessionStorage.setItem('currentPage', '/');
   }
 
   SignUp(account: Account) {

@@ -8,8 +8,17 @@ const morgan = require('morgan');
 const cors = require('cors');
 
 var app = express();
+
+app.all('*', function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'DELETE, HEAD, GET, OPTIONS, POST, PUT');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+});
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+// app.use(cors({ origin: 'http://localhost:4200' }));
 app.use(cors({ origin: 'http://localhost:4200' }));
 app.listen(3000, () => console.log("Server starts at port: 3000"));
 

@@ -58,7 +58,6 @@ router.post('/', (req, res) => {
         release_date: req.body.release_date,
         status: 1
     });
-    console.log(shoes);
     Shoes.collection.insertOne(shoes, (err, doc) => {
         if(err){
             res.json({

@@ -55,14 +55,17 @@ export class LoginComponent implements OnInit {
         this.errorStr = response.message;
       }
       else {
-        const type: Number = (response.obj as Account).type;
+        // console.log(response);
+        sessionStorage.setItem('token', response.obj.token);
+        const type: Number = (response.obj.data as Account).type;
         if (type === 1) {
-          sessionStorage.setItem('account', (response.obj as Account)._id);
+          sessionStorage.setItem('account', (response.obj.data as Account)._id);
           this.route.navigate(['admin']);
         }
         else {
-          sessionStorage.setItem('account', (response.obj as Account)._id);
-          this.route.navigate([sessionStorage.getItem('currenPage')]);
+          sessionStorage.setItem('token', response.obj.token);
+          sessionStorage.setItem('account', (response.obj.data as Account)._id);
+          this.route.navigate([sessionStorage.getItem('currentPage')]);
         }
       }
     });
@@ -83,9 +86,10 @@ export class LoginComponent implements OnInit {
           this.errorStr = response.message;
         }
         else {
-          console.log(response.obj as Account);
-          sessionStorage.setItem('account', (response.obj as Account)._id);
-          this.route.navigate([sessionStorage.getItem('currenPage')]);
+          // console.log(response.obj.data as Account);
+          sessionStorage.setItem('token', response.obj.token);
+          sessionStorage.setItem('account', (response.obj.data as Account)._id);
+          this.route.navigate([sessionStorage.getItem('currentPage')]);
         }
       });
     });
@@ -100,9 +104,10 @@ export class LoginComponent implements OnInit {
           this.errorStr = response.message;
         }
         else {
-          console.log(response.obj as Account);
-          sessionStorage.setItem('account', (response.obj as Account)._id);
-          this.route.navigate([sessionStorage.getItem('currenPage')]);
+          // console.log(response.obj as Account);
+          sessionStorage.setItem('token', response.obj.token);
+          sessionStorage.setItem('account', (response.obj.data as Account)._id);
+          this.route.navigate([sessionStorage.getItem('currentPage')]);
         }
       });
     });

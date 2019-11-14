@@ -10,15 +10,19 @@ import { CartComponent } from './components/cart/cart.component';
 import { HistoryComponent } from './components/history/history.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { CreateshoesComponent } from './components/createshoes/createshoes.component';
+import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
   { path: '', component: MainComponent, pathMatch: 'full' },
   { path: 'login', component: LoginComponent, pathMatch: 'full' },
   { path: 'signup', component: SignupComponent, pathMatch: 'full' },
   {  path: 'shoes/:id', component: ShoesComponent, pathMatch: 'full' },
-  {  path: 'profile', component: ProfileComponent, pathMatch: 'full' },
-  {  path: 'cart', component: CartComponent, pathMatch: 'full' },
-  {  path: 'history', component: HistoryComponent, pathMatch: 'full' },
+  {  path: 'profile', component: ProfileComponent, pathMatch: 'full',
+  canActivate: [AuthGuard] },
+  {  path: 'cart', component: CartComponent, pathMatch: 'full',
+  canActivate: [AuthGuard] },
+  {  path: 'history', component: HistoryComponent, pathMatch: 'full',
+  canActivate: [AuthGuard] },
   {  path: 'admin', component: AdminComponent, pathMatch: 'full' },
   {  path: 'createShoes', component: CreateshoesComponent, pathMatch: 'full' },
 ];

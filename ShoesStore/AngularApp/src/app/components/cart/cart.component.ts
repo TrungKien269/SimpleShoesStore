@@ -3,11 +3,13 @@ import { Router } from '@angular/router';
 
 import { CartService } from '../../services/cart.service';
 import { OrderService } from '../../services/order.service';
+import { AuthService } from '../../services/auth.service';
 
 import { Cart } from '../../models/cart';
 import { Order } from '../../models/order';
 import { OrderDetail } from '../../models/order-detail';
 import { Response } from '../../models/response';
+import { HttpErrorResponse } from '@angular/common/http';
 
 declare var $: any;
 
@@ -26,20 +28,30 @@ export class CartComponent implements OnInit {
   order: Order;
 
   constructor(public cartService: CartService, private route: Router,
-    public orderService: OrderService) { }
+    public orderService: OrderService, public authService: AuthService) { }
 
   ngOnInit() {
-    this.session = sessionStorage.getItem('account');
-    this.cartService.GetCart(this.session).subscribe((res) => {
-      this.response = res as Response;
-      this.shoesArr = this.response.obj as any[];
-      if (this.shoesArr.length === 0) {
-        this.total = 0;
+    this.authService.validate().subscribe((res) => {
+      const response: Response = res as Response;
+      if (response.status === false) {
+        alert(response.message);
+        sessionStorage.setItem('currentPage', '/cart');
+        this.route.navigate(['/login']);
       }
       else {
-        this.total = this.shoesArr.reduce((sum, current) =>
-          sum + (parseInt(current.quantity) * parseInt(current.shoes_id.shoes_prices[1])),
-          0);
+        this.session = sessionStorage.getItem('account');
+        this.cartService.GetCart(this.session).subscribe((res) => {
+          this.response = res as Response;
+          this.shoesArr = this.response.obj as any[];
+          if (this.shoesArr.length === 0) {
+            this.total = 0;
+          }
+          else {
+            this.total = this.shoesArr.reduce((sum, current) =>
+              sum + (parseInt(current.quantity) *
+              parseInt(current.shoes_id.shoes_prices[1])), 0);
+          }
+        });
       }
     });
   }
@@ -97,8 +109,8 @@ export class CartComponent implements OnInit {
       _id: null,
       account_id: this.session,
       datetime: today.getDate() + '/' + (today.getMonth() + 1) + '/'
-      + today.getFullYear() + ' ' + today.getHours() + ':' + today.getMinutes() + ':'
-      + today.getSeconds(),
+        + today.getFullYear() + ' ' + today.getHours() + ':' + today.getMinutes() + ':'
+        + today.getSeconds(),
       total: this.total,
       details: detailID
     };

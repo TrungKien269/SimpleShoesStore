@@ -1,6 +1,6 @@
 export class Response {
   message: string;
   status: boolean;
-  obj: object;
+  obj: any;
 }
 // Code tuần 1

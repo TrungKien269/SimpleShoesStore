@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,10 +14,13 @@ import { CartComponent } from './components/cart/cart.component';
 import { HistoryComponent } from './components/history/history.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { CreateshoesComponent } from './components/createshoes/createshoes.component';
+import { TokenInterceptorService } from './services/token-interceptor.service';
 
 
 import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider,
-  FacebookLoginProvider } from 'ng-social-login-module';
+  FacebookLoginProvider,
+  AuthService} from 'ng-social-login-module';
+import { AuthGuard } from './services/auth.guard';
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -54,7 +57,9 @@ export function provideConfig() {
     SocialLoginModule
   ],
   providers: [
-    { provide: AuthServiceConfig, useFactory: provideConfig }
+    { provide: AuthServiceConfig, useFactory: provideConfig },
+    AuthService, AuthGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },
   ],
   bootstrap: [AppComponent]
 })
