@@ -37,11 +37,6 @@ router.post('/social/facebook', (req, res) => {
         }
         else {
             var account = doc;
-            // res.json({
-            //     status: true,
-            //     message: "Success",
-            //     obj: account
-            // });
             let payload = { subject: account._id };
             let token = jwt.sign(payload, 'secretKey');
             var obj = {
@@ -74,11 +69,6 @@ router.post('/social/google', (req, res) => {
         }
         else {
             var account = doc;
-            // res.json({
-            //     status: true,
-            //     message: "Success",
-            //     obj: account
-            // });
             let payload = { subject: account._id };
             let token = jwt.sign(payload, 'secretKey');
             var obj = {

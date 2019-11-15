@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
         else{
             res.json({
                 status: false,
-                message: "Error in retriving Account: " + 
+                message: "Error in retriving Shoes: " + 
                 JSON.stringify(err, undefined, 2)
             })
         }

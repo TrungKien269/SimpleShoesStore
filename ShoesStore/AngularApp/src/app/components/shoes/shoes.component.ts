@@ -85,5 +85,4 @@ export class ShoesComponent implements OnInit {
       this.route.navigate(['/history']);
     }
   }
-
 }

@@ -88,7 +88,4 @@ router.post('/details', (req, res) => {
         }
     })
 });
-
-
-
 module.exports = router;

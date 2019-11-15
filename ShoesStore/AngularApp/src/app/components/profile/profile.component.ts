@@ -74,5 +74,4 @@ export class ProfileComponent implements OnInit {
     this.accountService.Logout();
     this.session = undefined;
   }
-
 }

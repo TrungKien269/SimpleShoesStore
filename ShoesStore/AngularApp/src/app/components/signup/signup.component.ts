@@ -84,6 +84,7 @@ export class SignupComponent implements OnInit {
       this.user = userData;
       console.log(this.user);
       this.accountService.currentAccount.facebook_id = this.user.id;
+      this.userService.currentUser.fullname = this.user.name;
       this.accountService.SignUp(this.accountService.currentAccount).subscribe((res) => {
         const response: Response = res as Response;
         if (!response.status) {
@@ -92,7 +93,15 @@ export class SignupComponent implements OnInit {
         else {
           console.log(response.obj as Account);
           sessionStorage.setItem('account', (response.obj as Account)._id);
-          this.route.navigate(['/']);
+          this.userService.CreateUser(this.userService.currentUser).subscribe((res) => {
+            let response: Response = res as Response;
+            if (!response.status) {
+              this.errorStr = response.message;
+            }
+            else{
+              this.route.navigate(['/']);
+            }
+          });
         }
       });
     });
@@ -103,6 +112,7 @@ export class SignupComponent implements OnInit {
       this.user = userData;
       console.log(this.user);
       this.accountService.currentAccount.google_id = this.user.id;
+      this.userService.currentUser.fullname = this.user.name;
       this.accountService.SignUp(this.accountService.currentAccount).subscribe((res) => {
         const response: Response = res as Response;
         if (!response.status) {
@@ -111,10 +121,17 @@ export class SignupComponent implements OnInit {
         else {
           console.log(response.obj as Account);
           sessionStorage.setItem('account', (response.obj as Account)._id);
-          this.route.navigate(['/']);
+          this.userService.CreateUser(this.userService.currentUser).subscribe((res) => {
+            let response: Response = res as Response;
+            if (!response.status) {
+              this.errorStr = response.message;
+            }
+            else{
+              this.route.navigate(['/']);
+            }
+          });
         }
       });
     });
   }
-
 }

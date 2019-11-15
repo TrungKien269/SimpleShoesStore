@@ -48,8 +48,6 @@ router.get('/:id', (req, res) => {
     });
 });
 
-router.get('/:id')
-
 router.post('/', (req, res) => {
     var category = new Category({
         name: req.body.name,

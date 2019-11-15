@@ -112,6 +112,4 @@ export class LoginComponent implements OnInit {
       });
     });
   }
-  // Code tuần 2
-
 }
