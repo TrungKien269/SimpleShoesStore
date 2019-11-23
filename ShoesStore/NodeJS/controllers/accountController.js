@@ -3,7 +3,9 @@ const jwt = require('jsonwebtoken');
 const cors = require('cors');
 var router = express.Router();
 var { Account } = require('../models/accounts');
-var md5 = require('md5');
+const md5 = require('md5');
+
+const expiredToken = '1m';
 
 router.get('/', (req, res) => {
     Account.find((err, docs) => {
@@ -38,7 +40,9 @@ router.post('/social/facebook', (req, res) => {
         else {
             var account = doc;
             let payload = { subject: account._id };
-            let token = jwt.sign(payload, 'secretKey');
+            let token = jwt.sign(payload, 'secretKey', {
+                expiresIn: expiredToken
+            });
             var obj = {
                 data: account,
                 token: token
@@ -70,7 +74,9 @@ router.post('/social/google', (req, res) => {
         else {
             var account = doc;
             let payload = { subject: account._id };
-            let token = jwt.sign(payload, 'secretKey');
+            let token = jwt.sign(payload, 'secretKey', {
+                expiresIn: expiredToken
+            });
             var obj = {
                 data: account,
                 token: token
@@ -110,7 +116,9 @@ router.post('/login', (req, res) => {
             }
             else {
                 let payload = { subject: account._id };
-                let token = jwt.sign(payload, 'secretKey');
+                let token = jwt.sign(payload, 'secretKey', {
+                    expiresIn: expiredToken
+                });
                 var obj = {
                     data: account,
                     token: token
@@ -144,17 +152,29 @@ router.post('/', (req, res) => {
             });
         }
         else {
+            let payload = { subject: account._id };
+            let token = jwt.sign(payload, 'secretKey', {
+                expiresIn: expiredToken
+            });
+            var obj = {
+                data: account,
+                token: token
+            }
+            var obj = {
+                data: account,
+                token: token
+            }
             res.json({
                 status: true,
                 message: "Insert Successfully!",
-                obj: account
+                obj: obj
             });
         }
     })
 });
 
 router.get('/special', cors(), verifyToken, (req, res) => {
-    res.json({
+    res.send({
         status: true,
         message: "Success",
         obj: null
@@ -163,45 +183,60 @@ router.get('/special', cors(), verifyToken, (req, res) => {
 
 function verifyToken(req, res, next) {
     if (!req.headers.authorization) {
-        res.json({
+        res.send({
             status: false,
             message: "Unauthorized Request!",
             obj: null
         });
     }
-    try {
-        let token = req.headers.authorization.split(' ')[1];
-        if (!token) {
-            res.json({
+    else {
+        try {
+            let token = req.headers.authorization.split(' ')[1];
+            let decoded = jwt.decode(token, 'secretKey');
+            if (decoded.exp <= Date.now().toString()
+            .substring(0, parseInt(decoded.exp.toString().length))) {
+                res.send({
+                    status: false,
+                    message: "Access token has expired, you have to re-login!",
+                    obj: null
+                });
+            }
+            else if (!token) {
+                res.send({
+                    status: false,
+                    message: "Unauthorized Request!",
+                    obj: null
+                });
+            }
+            else if (token === 'null') {
+                res.send({
+                    status: false,
+                    message: "Unauthorized Request!",
+                    obj: null
+                });
+            }
+            else {
+                let payload = jwt.verify(token, 'secretKey');
+                if (!payload) {
+                    res.send({
+                        status: false,
+                        message: "Unauthorized Request!",
+                        obj: null
+                    });
+                }
+                else {
+                    req.userID = payload.subject;
+                    next();
+                }
+            }
+        }
+        catch (e) {
+            res.send({
                 status: false,
                 message: "Unauthorized Request!",
                 obj: null
             });
         }
-        if (token === 'null') {
-            res.json({
-                status: false,
-                message: "Unauthorized Request!",
-                obj: null
-            });
-        }
-        let payload = jwt.verify(token, 'secretKey');
-        if (!payload) {
-            res.json({
-                status: false,
-                message: "Unauthorized Request!",
-                obj: null
-            });
-        }
-        req.userID = payload.subject;
-        next();
-    }
-    catch (e) {
-        res.json({
-            status: false,
-            message: "Unauthorized Request!",
-            obj: null
-        });
     }
 }
 

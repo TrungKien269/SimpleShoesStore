@@ -1,5 +1,6 @@
 import { Component, OnInit, ɵConsole } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
 
 import { ShoesService } from '../../services/shoes.service';
 import { CartService } from '../../services/cart.service';
@@ -37,7 +38,7 @@ export class ShoesComponent implements OnInit {
     e.preventDefault();
     if (this.session === null) {
       sessionStorage.setItem('currenPage', '/shoes/' +
-      this.activatedRoute.snapshot.paramMap.get('id'));
+        this.activatedRoute.snapshot.paramMap.get('id'));
       this.route.navigate(['/login']);
     }
     else {
@@ -47,7 +48,11 @@ export class ShoesComponent implements OnInit {
           if (!response.status) {
             alert(response.message);
           } else {
-            alert('Add this shoes to cart successfully');
+            Swal.fire({
+              title: 'Complete',
+              text: 'Add this shoes to cart successfully',
+              icon: 'success'
+            });
           }
         });
     }
@@ -55,7 +60,7 @@ export class ShoesComponent implements OnInit {
 
   Cart(e: any) {
     e.preventDefault();
-    if(this.session === null) {
+    if (this.session === null) {
       sessionStorage.setItem('currenPage', '/cart');
       this.route.navigate(['/login']);
     }
@@ -66,7 +71,7 @@ export class ShoesComponent implements OnInit {
 
   Profile(e: any) {
     e.preventDefault();
-    if(this.session === null) {
+    if (this.session === null) {
       sessionStorage.setItem('currenPage', '/profile');
       this.route.navigate(['/login']);
     }
@@ -77,7 +82,7 @@ export class ShoesComponent implements OnInit {
 
   History(e: any) {
     e.preventDefault();
-    if(this.session === null) {
+    if (this.session === null) {
       sessionStorage.setItem('currenPage', '/history');
       this.route.navigate(['/login']);
     }

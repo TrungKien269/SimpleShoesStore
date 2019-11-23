@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 import { AccountService } from '../../services/account.service';
 import { Account } from '../../models/account';
@@ -24,7 +25,6 @@ export class LoginComponent implements OnInit {
   constructor(public accountService: AccountService, private route: Router,
     private socialAuthService: AuthService) { }
 
-  errorStr: string;
   public user: any = SocialUser;
 
   ngOnInit() {
@@ -52,21 +52,31 @@ export class LoginComponent implements OnInit {
     this.accountService.Login(username, password).subscribe((res) => {
       const response: Response = res as Response;
       if (!response.status) {
-        this.errorStr = response.message;
+        Swal.fire({
+          icon: 'error',
+          title: 'Fail',
+          text: response.message
+        });
       }
       else {
-        // console.log(response);
-        sessionStorage.setItem('token', response.obj.token);
-        const type: Number = (response.obj.data as Account).type;
-        if (type === 1) {
-          sessionStorage.setItem('account', (response.obj.data as Account)._id);
-          this.route.navigate(['admin']);
-        }
-        else {
+        Swal.fire({
+          title: 'Complete',
+          text: response.message,
+          icon: 'success'
+        }).then((result) => {
           sessionStorage.setItem('token', response.obj.token);
-          sessionStorage.setItem('account', (response.obj.data as Account)._id);
-          this.route.navigate([sessionStorage.getItem('currentPage')]);
-        }
+          const type: Number = (response.obj.data as Account).type;
+          if (type === 1) {
+            sessionStorage.setItem('account', (response.obj.data as Account)._id);
+            sessionStorage.setItem('accountType', "1");
+            this.route.navigate(['admin']);
+          }
+          else {
+            sessionStorage.setItem('token', response.obj.token);
+            sessionStorage.setItem('account', (response.obj.data as Account)._id);
+            this.route.navigate([sessionStorage.getItem('currentPage')]);
+          }
+        });
       }
     });
   }
@@ -83,13 +93,22 @@ export class LoginComponent implements OnInit {
       this.accountService.LoginWithFacebook(this.user.id).subscribe((res) => {
         const response: Response = res as Response;
         if (!response.status) {
-          this.errorStr = response.message;
+          Swal.fire({
+            icon: 'error',
+            title: 'Fail',
+            text: response.message
+          });
         }
         else {
-          // console.log(response.obj.data as Account);
-          sessionStorage.setItem('token', response.obj.token);
-          sessionStorage.setItem('account', (response.obj.data as Account)._id);
-          this.route.navigate([sessionStorage.getItem('currentPage')]);
+          Swal.fire({
+            title: 'Complete',
+            text: response.message,
+            icon: 'success'
+          }).then((result) => {
+            sessionStorage.setItem('token', response.obj.token);
+            sessionStorage.setItem('account', (response.obj.data as Account)._id);
+            this.route.navigate([sessionStorage.getItem('currentPage')]);
+          });
         }
       });
     });
@@ -101,7 +120,11 @@ export class LoginComponent implements OnInit {
       this.accountService.LoginWithGoogle(this.user.id).subscribe((res) => {
         const response: Response = res as Response;
         if (!response.status) {
-          this.errorStr = response.message;
+          Swal.fire({
+            icon: 'error',
+            title: 'Fail',
+            text: response.message
+          });
         }
         else {
           // console.log(response.obj as Account);

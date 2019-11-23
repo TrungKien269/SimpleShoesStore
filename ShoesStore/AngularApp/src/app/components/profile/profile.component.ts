@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 import { UserService } from '../../services/user.service';
 import { AccountService } from '../../services/account.service';
@@ -28,9 +29,14 @@ export class ProfileComponent implements OnInit {
     this.authService.validate().subscribe((res) => {
       const response: Response = res as Response;
       if (response.status === false) {
-        alert(response.message);
-        sessionStorage.setItem('currentPage', '/profile');
-        this.route.navigate(['/login']);
+        Swal.fire({
+          icon: 'error',
+          title: 'ERROR',
+          text: response.message
+        }).then((result) => {
+          sessionStorage.setItem('currentPage', '/profile');
+          this.route.navigate(['/login']);
+        });
       }
       else {
         this.resetForm();
@@ -62,10 +68,18 @@ export class ProfileComponent implements OnInit {
       .subscribe((res) => {
         const response: Response = res as Response;
         if (!response.status) {
-          this.errorStr = response.message;
+          Swal.fire({
+            icon: 'error',
+            title: 'ERROR',
+            text: response.message
+          });
         }
         else {
-          alert(response.message);
+          Swal.fire({
+            title: 'Complete',
+            text: response.message,
+            icon: 'success'
+          });
         }
       });
   }

@@ -24,7 +24,7 @@ export class MainComponent implements OnInit {
     this.shoesService.GetList().subscribe((res) => {
       this.ListShoes = res as Shoes[];
       this.session = sessionStorage.getItem('account');
-      sessionStorage.setItem('currenPage', '/');
+      sessionStorage.setItem('currentPage', '/');
       console.log(this.session);
     });
   }

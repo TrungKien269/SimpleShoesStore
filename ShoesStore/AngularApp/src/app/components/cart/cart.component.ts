@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 import { CartService } from '../../services/cart.service';
 import { OrderService } from '../../services/order.service';
@@ -34,9 +35,14 @@ export class CartComponent implements OnInit {
     this.authService.validate().subscribe((res) => {
       const response: Response = res as Response;
       if (response.status === false) {
-        alert(response.message);
-        sessionStorage.setItem('currentPage', '/cart');
-        this.route.navigate(['/login']);
+        Swal.fire({
+          icon: 'error',
+          title: 'ERROR',
+          text: response.message
+        }).then((result) => {
+          sessionStorage.setItem('currentPage', '/cart');
+          this.route.navigate(['/login']);
+        });
       }
       else {
         this.session = sessionStorage.getItem('account');
@@ -49,7 +55,7 @@ export class CartComponent implements OnInit {
           else {
             this.total = this.shoesArr.reduce((sum, current) =>
               sum + (parseInt(current.quantity) *
-              parseInt(current.shoes_id.shoes_prices[1])), 0);
+                parseInt(current.shoes_id.shoes_prices[1])), 0);
           }
         });
       }
@@ -74,15 +80,38 @@ export class CartComponent implements OnInit {
   }
 
   RemoveShoes(shoes_id: string) {
-    this.shoesArr = this.shoesArr.filter(shoes => shoes.shoes_id._id !== shoes_id);
-    this.total = this.shoesArr.reduce((sum, current) =>
-      sum + (parseInt(current.quantity) * parseInt(current.shoes_id.shoes_prices[1])),
-      0);
+    Swal.fire({
+      title: 'Confirm',
+      text: "Do you want to remove this shose?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, remove it!'
+    }).then((result) => {
+      if (result.value) {
+        this.shoesArr = this.shoesArr.filter(shoes => shoes.shoes_id._id !== shoes_id);
+        this.total = this.shoesArr.reduce((sum, current) =>
+          sum + (parseInt(current.quantity) * parseInt(current.shoes_id.shoes_prices[1])),
+          0);
 
-    this.cartService.RemoveShoes(this.session, shoes_id).subscribe((res) => {
-      const response: Response = res as Response;
-      if (!response.status) {
-        alert(response.message);
+        this.cartService.RemoveShoes(this.session, shoes_id).subscribe((res) => {
+          const response: Response = res as Response;
+          if (!response.status) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Fail',
+              text: response.message
+            });
+          }
+          else {
+            Swal.fire({
+              title: 'Complete',
+              text: response.message,
+              icon: 'success'
+            });
+          }
+        });
       }
     });
   }
@@ -99,37 +128,55 @@ export class CartComponent implements OnInit {
       this.orderService.CreateOrderDetail(orderDetail).subscribe((res) => {
         const response: Response = res as Response;
         if (!response.status) {
-          alert(response.message);
+          Swal.fire({
+            icon: 'error',
+            title: 'Fail',
+            text: response.message
+          });
+        }
+        else {
+          const today = new Date();
+          this.order = {
+            _id: null,
+            account_id: this.session,
+            datetime: today.getDate() + '/' + (today.getMonth() + 1) + '/'
+              + today.getFullYear() + ' ' + today.getHours() + ':' + today.getMinutes() + ':'
+              + today.getSeconds(),
+            total: this.total,
+            details: detailID
+          };
+          this.orderService.CreateOrder(this.order).subscribe((res) => {
+            const response: Response = res as Response;
+            if (!response.status) {
+              Swal.fire({
+                icon: 'error',
+                title: 'Fail',
+                text: response.message
+              });
+            }
+            else {
+              this.cartService.RemoveAll(this.session).subscribe((res) => {
+                const response: Response = res as Response;
+                if (!response.status) {
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Fail',
+                    text: response.message
+                  });
+                }
+                else {
+                  Swal.fire({
+                    title: 'Complete',
+                    text: 'Buy successfully',
+                    icon: 'success'
+                  });
+                  this.shoesArr = [];
+                }
+              });
+            }
+          });
         }
       });
-    });
-
-    const today = new Date();
-    this.order = {
-      _id: null,
-      account_id: this.session,
-      datetime: today.getDate() + '/' + (today.getMonth() + 1) + '/'
-        + today.getFullYear() + ' ' + today.getHours() + ':' + today.getMinutes() + ':'
-        + today.getSeconds(),
-      total: this.total,
-      details: detailID
-    };
-    this.orderService.CreateOrder(this.order).subscribe((res) => {
-      const response: Response = res as Response;
-      if (!response.status) {
-        alert(response.message);
-      }
-    });
-
-    this.cartService.RemoveAll(this.session).subscribe((res) => {
-      const response: Response = res as Response;
-      if (!response.status) {
-        alert(response.message);
-      }
-      else {
-        alert('Buy successfully');
-        this.shoesArr = [];
-      }
     });
   }
 

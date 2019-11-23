@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 import { OrderService } from '../../services/order.service';
 import { AuthService } from '../../services/auth.service';
@@ -26,9 +27,14 @@ export class HistoryComponent implements OnInit {
     this.authService.validate().subscribe((res) => {
       const response: Response = res as Response;
       if (response.status === false) {
-        alert(response.message);
-        sessionStorage.setItem('currentPage', '/history');
+        Swal.fire({
+          icon: 'error',
+          title: 'ERROR',
+          text: response.message
+        }).then((result) => {
+          sessionStorage.setItem('currentPage', '/history');
         this.route.navigate(['/login']);
+        });
       }
       else {
         this.session = sessionStorage.getItem('account');
