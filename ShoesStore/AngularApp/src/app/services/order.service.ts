@@ -24,4 +24,11 @@ export class OrderService {
   GetOrders(account_id: string) {
     return this.http.get(this.baseURL + account_id);
   }
+
+  SendEmail(email: string, orderID: string) {
+    return this.http.post(this.baseURL + '/sendMail', {
+      email: email,
+      orderID: orderID
+    });
+  }
 }

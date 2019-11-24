@@ -5,7 +5,7 @@ var router = express.Router();
 var { Account } = require('../models/accounts');
 const md5 = require('md5');
 
-const expiredToken = '1m';
+const expiredToken = '1h';
 
 router.get('/', (req, res) => {
     Account.find((err, docs) => {
