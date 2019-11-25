@@ -10,18 +10,19 @@ import { SupplierService } from '../../services/supplier.service';
 import { ColorService } from '../../services/color.service';
 import { SizeService } from '../../services/size.service';
 import { UploadService } from '../../services/upload.service';
+import { AuthService } from '../../services/auth.service';
 
 import { Shoes } from '../../models/shoes';
 import { Response } from '../../models/response';
 
 import * as $ from 'jquery';
-import Swal from 'sweetalert2';
 import { Category } from 'src/app/models/category';
 import { Maker } from 'src/app/models/maker';
 import { Origin } from 'src/app/models/origin';
 import { Supplier } from 'src/app/models/supplier';
 import { Color } from 'src/app/models/color';
 import { Size } from 'src/app/models/size';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-updateshoes',
@@ -34,7 +35,8 @@ export class UpdateshoesComponent implements OnInit {
     public categoryService: CategoryService, public makerService: MakerService,
     public originService: OriginService, public supplierService: SupplierService,
     public colorService: ColorService, public sizeService: SizeService,
-    public uploadService: UploadService, private activatedRoute: ActivatedRoute) { }
+    public uploadService: UploadService, private activatedRoute: ActivatedRoute,
+    public authService: AuthService) { }
 
   categoryList: Category[];
   makerList: Maker[];
@@ -45,7 +47,21 @@ export class UpdateshoesComponent implements OnInit {
   fileData: File;
 
   ngOnInit() {
-    this.initShoes();
+    this.authService.validate().subscribe((res) => {
+      const response: Response = res as Response;
+      if (response.status === false) {
+        Swal.fire({
+          icon: 'error',
+          title: 'ERROR',
+          text: response.message
+        }).then((result) => {
+          this.route.navigate(['/login']);
+        });
+      }
+      else {
+        this.initShoes();
+      }
+    });
   }
 
   initShoes() {

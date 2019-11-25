@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 
 import { ShoesService } from '../../services/shoes.service';
+import { AuthService } from '../../services/auth.service';
 
 import { Shoes } from '../../models/shoes';
 import { Response } from '../../models/response';
@@ -17,16 +18,30 @@ import * as $ from 'jquery';
 export class EditshoesComponent implements OnInit {
 
   constructor(public shoesService: ShoesService, private route: Router,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute, public authService: AuthService) { }
 
   response: Response;
   session: string;
 
   ngOnInit() {
-    const id = this.activatedRoute.snapshot.paramMap.get('id');
-    this.shoesService.GetShoes(id).subscribe((res) => {
-      this.response = res as Response;
-      this.shoesService.currentShoes = (this.response.obj) as Shoes;
+    this.authService.validate().subscribe((res) => {
+      const response: Response = res as Response;
+      if (response.status === false) {
+        Swal.fire({
+          icon: 'error',
+          title: 'ERROR',
+          text: response.message
+        }).then((result) => {
+          this.route.navigate(['/login']);
+        });
+      }
+      else {
+        const id = this.activatedRoute.snapshot.paramMap.get('id');
+        this.shoesService.GetShoes(id).subscribe((res) => {
+          this.response = res as Response;
+          this.shoesService.currentShoes = (this.response.obj) as Shoes;
+        });
+      }
     });
   }
 

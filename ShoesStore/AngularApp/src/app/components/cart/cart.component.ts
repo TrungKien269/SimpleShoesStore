@@ -190,6 +190,7 @@ export class CartComponent implements OnInit {
               }
               else {
                 const orderID = response.obj._id;
+                this.total = 0;
                 this.cartService.RemoveAll(this.session).subscribe((res) => {
                   const response: Response = res as Response;
                   if (!response.status) {

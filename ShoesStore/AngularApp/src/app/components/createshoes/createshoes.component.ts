@@ -10,6 +10,7 @@ import { SupplierService } from '../../services/supplier.service';
 import { ColorService } from '../../services/color.service';
 import { SizeService } from '../../services/size.service';
 import { UploadService } from '../../services/upload.service';
+import { AuthService } from '../../services/auth.service';
 
 import { Shoes } from '../../models/shoes';
 import { Response } from '../../models/response';
@@ -21,6 +22,7 @@ import { Origin } from 'src/app/models/origin';
 import { Supplier } from 'src/app/models/supplier';
 import { Color } from 'src/app/models/color';
 import { Size } from 'src/app/models/size';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-createshoes',
@@ -42,16 +44,30 @@ export class CreateshoesComponent implements OnInit {
     public categoryService: CategoryService, public makerService: MakerService,
     public originService: OriginService, public supplierService: SupplierService,
     public colorService: ColorService, public sizeService: SizeService,
-    public uploadService: UploadService) { }
+    public uploadService: UploadService, public authService: AuthService) { }
 
   ngOnInit() {
-    this.initShoes();
-    this.GetAllCategory();
-    this.GetAllMaker();
-    this.GetAllOrigin();
-    this.GetAllSupplier();
-    this.GetAllColor();
-    this.GetAllSize();
+    this.authService.validate().subscribe((res) => {
+      const response: Response = res as Response;
+      if (response.status === false) {
+        Swal.fire({
+          icon: 'error',
+          title: 'ERROR',
+          text: response.message
+        }).then((result) => {
+          this.route.navigate(['/login']);
+        });
+      }
+      else {
+        this.initShoes();
+        this.GetAllCategory();
+        this.GetAllMaker();
+        this.GetAllOrigin();
+        this.GetAllSupplier();
+        this.GetAllColor();
+        this.GetAllSize();
+      }
+    });
   }
 
   initShoes() {
@@ -144,12 +160,12 @@ export class CreateshoesComponent implements OnInit {
   onSubmit() {
     this.shoesService.CreateShoes(this.shoesService.currentShoes).subscribe((res) => {
       const response: Response = res as Response;
-      if(response.status) {
+      if (response.status) {
         this.UploadImage((response.obj as Shoes)._id);
         alert('Create Successfully');
         this.initShoes();
       }
-      else{
+      else {
         alert(response.message);
         console.log(response);
       }
