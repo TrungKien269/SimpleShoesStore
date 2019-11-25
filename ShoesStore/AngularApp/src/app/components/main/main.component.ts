@@ -21,14 +21,23 @@ export class MainComponent implements OnInit {
     public accountService: AccountService) { }
 
   ngOnInit() {
-    this.shoesService.GetList().subscribe((res) => {
-      this.ListShoes = res as Shoes[];
-      this.session = sessionStorage.getItem('account');
-      sessionStorage.setItem('currentPage', '/');
-      console.log(this.session);
-    });
+    const accountType = sessionStorage.getItem('accountType');
+    if (accountType !== null && accountType === '1') {
+      sessionStorage.setItem('currentPage', '/admin');
+      this.route.navigate(['/admin']);
+    }
+    else{
+      this.shoesService.GetList().subscribe((res) => {
+        this.ListShoes = res as Shoes[];
+        this.session = sessionStorage.getItem('account');
+        sessionStorage.setItem('currentPage', '/');
+      });
+    }
   }
-  // Code tuần 1
+
+  GetSellingShoes() {
+    return this.ListShoes.filter(shoes => shoes.status === 1);
+  }
 
   Logout() {
     this.accountService.Logout();

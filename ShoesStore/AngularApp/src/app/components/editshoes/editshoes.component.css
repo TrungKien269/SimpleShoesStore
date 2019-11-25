@@ -1,0 +1,46 @@
+@import '../../../assets/css/light-bootstrap-dashboard.css';
+@import '../../../assets/css/style.css';
+
+
+.sidebar{
+  background-image: url('../../../assets/images/sidebar-3.jpg') !important;
+}
+
+.content{
+  background-color:#e7e7e7;
+}
+
+ul.menu-left {
+  list-style-type: none;
+  width: 500px;
+}
+
+ul.menu-left > li > a {
+  /* font: 200 12px/1.5 Georgia, Times New Roman, serif; */
+  text-decoration: none;
+}
+
+ul.menu-left > li > a{
+  color: white;
+  font-size: 18px;
+}
+
+ul.menu-left > li {
+  padding: 10px;
+  overflow: hidden;
+}
+
+ul.menu-left > li:hover {
+  background: #eee;
+  cursor: pointer;
+}
+
+ul.menu-left > li:hover > a{
+  color: black;
+}
+
+.container-fluid{
+  padding-left: 0px;
+  padding-right: 0px;
+}
+

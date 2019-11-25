@@ -15,12 +15,14 @@ import { HistoryComponent } from './components/history/history.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { CreateshoesComponent } from './components/createshoes/createshoes.component';
 import { TokenInterceptorService } from './services/token-interceptor.service';
+import { EditshoesComponent } from './components/editshoes/editshoes.component';
 
 
 import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider,
   FacebookLoginProvider,
   AuthService} from 'ng-social-login-module';
 import { AuthGuard } from './services/auth.guard';
+import { UpdateshoesComponent } from './components/updateshoes/updateshoes.component';
 const config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,
@@ -48,6 +50,8 @@ export function provideConfig() {
     HistoryComponent,
     AdminComponent,
     CreateshoesComponent,
+    EditshoesComponent,
+    UpdateshoesComponent,
   ],
   imports: [
     BrowserModule,

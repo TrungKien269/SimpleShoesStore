@@ -30,7 +30,6 @@ export class ShoesComponent implements OnInit {
     this.shoesService.GetShoes(id).subscribe((res) => {
       this.response = res as Response;
       this.shoesService.currentShoes = (this.response.obj) as Shoes;
-      console.log(this.shoesService.currentShoes);
     });
   }
 
@@ -46,7 +45,11 @@ export class ShoesComponent implements OnInit {
         this.activatedRoute.snapshot.paramMap.get('id')).subscribe((res) => {
           const response: Response = res as Response;
           if (!response.status) {
-            alert(response.message);
+            Swal.fire({
+              title: 'Fail',
+              text: response.message,
+              icon: 'error'
+            });
           } else {
             Swal.fire({
               title: 'Complete',

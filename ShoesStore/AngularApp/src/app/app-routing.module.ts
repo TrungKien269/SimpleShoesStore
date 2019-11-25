@@ -11,6 +11,8 @@ import { HistoryComponent } from './components/history/history.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { CreateshoesComponent } from './components/createshoes/createshoes.component';
 import { AuthGuard } from './services/auth.guard';
+import { EditshoesComponent } from './components/editshoes/editshoes.component';
+import { UpdateshoesComponent } from './components/updateshoes/updateshoes.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent, pathMatch: 'full' },
@@ -25,6 +27,8 @@ const routes: Routes = [
   canActivate: [AuthGuard] },
   {  path: 'admin', component: AdminComponent, pathMatch: 'full' },
   {  path: 'createShoes', component: CreateshoesComponent, pathMatch: 'full' },
+  {  path: 'editShoes/:id', component: EditshoesComponent, pathMatch: 'full' },
+  {  path: 'updateShoes/:id', component: UpdateshoesComponent, pathMatch: 'full' },
 ];
 // Code tuần 1
 

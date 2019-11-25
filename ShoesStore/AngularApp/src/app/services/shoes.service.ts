@@ -25,4 +25,16 @@ export class ShoesService {
   CreateShoes(shoes: Shoes) {
     return this.http.post(this.baseURL, shoes);
   }
+
+  DeleteShoes(id: string) {
+    return this.http.delete(this.baseURL + '/' + id);
+  }
+
+  ActivateShoes(id: string) {
+    return this.http.delete(this.baseURL + 'activate/' + id);
+  }
+
+  UpdateShoes(id: string, shoes: Shoes) {
+    return this.http.put(this.baseURL + '/' + id, shoes);
+  }
 }

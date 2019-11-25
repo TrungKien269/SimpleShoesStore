@@ -83,7 +83,7 @@ export class CartComponent implements OnInit {
   RemoveShoes(shoes_id: string) {
     Swal.fire({
       title: 'Confirm',
-      text: "Do you want to remove this shose?",
+      text: 'Do you want to remove this shoes?',
       icon: 'question',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',

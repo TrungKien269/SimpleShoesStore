@@ -23,13 +23,14 @@ export class AdminComponent implements OnInit {
     this.shoesService.GetList().subscribe((res) => {
       this.ListShoes = res as Shoes[];
       this.session = sessionStorage.getItem('account');
-      console.log(this.session);
     });
   }
 
   Logout() {
-    sessionStorage.removeItem('account');
+    sessionStorage.clear();
+    sessionStorage.setItem('currentPage', '/');
     this.session = null;
+    this.route.navigate(['/']);
   }
 
 }

@@ -69,11 +69,12 @@ export class LoginComponent implements OnInit {
           if (type === 1) {
             sessionStorage.setItem('account', (response.obj.data as Account)._id);
             sessionStorage.setItem('accountType', "1");
-            this.route.navigate(['admin']);
+            this.route.navigate(['/admin']);
           }
           else {
             sessionStorage.setItem('token', response.obj.token);
             sessionStorage.setItem('account', (response.obj.data as Account)._id);
+            sessionStorage.setItem('accountType', "0");
             this.route.navigate([sessionStorage.getItem('currentPage')]);
           }
         });

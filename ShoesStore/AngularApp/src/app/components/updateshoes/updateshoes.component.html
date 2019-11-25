@@ -1,0 +1,209 @@
+<div class="wrapper">
+
+  <div class="sidebar" data-color="black">
+    <div class="sidebar-wrapper">
+      <div class="logo">
+        <a href="/" class="simple-text">Sneaker World</a>
+      </div>
+
+      <ul class="menu-left">
+        <li>
+          <a [routerLink]="['/createShoes']">Create Shoes</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="main-panel">
+    <nav class="navbar navbar-default navbar-fixed">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="">Shop</a>
+        </div>
+        <div class="navbar-header">
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <p href="" id="logoutTag" (click)="Logout()">Logout</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card">
+                <div class="header">
+                  <h4 class="title">Update Shoes</h4>
+                </div>
+                <div class="content">
+                  <form #updateForm="ngForm" enctype="multipart/form-data" method="post"
+                  (ngSubmit)="onSubmit()">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Shoes Name</label>
+                          <input type="text" class="form-control" name="name"
+                          [(ngModel)]="shoesService.currentShoes.name"
+                          required autocomplete="off">
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Maker</label>
+                          <select name="maker" class="form-control"
+                          [(ngModel)]="shoesService.currentShoes.maker_id">
+                            <option *ngFor="let maker of makerList" [value]="maker._id"
+                            [defaultSelected]="shoesService.currentShoes.maker_id">
+                              {{maker.name}}
+                            </option>
+                          </select>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Category</label>
+                          <select name="category" class="form-control"
+                          [(ngModel)]="shoesService.currentShoes.category_id">
+                            <option *ngFor="let cate of categoryList" [value]="cate._id"
+                            [defaultSelected]="shoesService.currentShoes.category_id">
+                              {{cate.name}}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Original Country</label>
+                          <select name="origin" class="form-control"
+                          [(ngModel)]="shoesService.currentShoes.origin_id">
+                            <option *ngFor="let origin of originList" [value]="origin._id"
+                            [defaultSelected]="shoesService.currentShoes.origin_id">
+                              {{origin.country_name}}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-8">
+                        <div class="form-group">
+                          <label>Designer</label>
+                          <input type="text" class="form-control" name="designer"
+                          required autocomplete="off"
+                          [(ngModel)]="shoesService.currentShoes.designer">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-8">
+                        <div class="small-row">
+                          <div class="form-group">
+                            <label>Release Date</label>
+                            <input type="date" class="form-control" name="releasedate"
+                            id="txtDate"
+                            required [(ngModel)]="shoesService.currentShoes.release_date">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-8">
+                        <div class="form-group">
+                          <label>Old Price</label>
+                          <input type="number" class="form-control" name="oldprice"
+                          required autocomplete="off"
+                          [(ngModel)]="shoesService.currentShoes.shoes_prices[0]">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-8">
+                          <div class="form-group">
+                            <label>New Price</label>
+                            <input type="number" class="form-control" name="newprice"
+                            required autocomplete="off"
+                            [(ngModel)]="shoesService.currentShoes.shoes_prices[1]">
+                          </div>
+                        </div>
+                      </div>
+
+
+                    <div class="col-md-7">
+                      <div class="card card-user">
+                        <div class="content"
+                          style="border: 1px solid black;border-radius: 4px;width: 300px; height:300px ">
+                          <img id="blah"
+                          src="http://localhost:3000/images/shoes/{{shoesService.currentShoes._id}}.jpeg"
+                          alt="your image"
+                            style="border:2px solid white; width: 300px;height:290px;padding: 0px " />
+                        </div>
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <button class="btn btn-primary" (click)="OpenFile()">
+                                Select
+                              </button>
+                            </div>
+                            <div class="col-md-6">
+                              <button class="btn btn-primary" (click)="ClearFile()">
+                                Reset
+                              </button>
+                            </div>
+                          </div>
+                          <input type="file" name="image" accept="image/*"
+                          (change)="onChange($event)" id="imgFile"
+                          value=""
+                            style="opacity: 0;width: 100%;height: 100px; visibility: hidden;">
+                        </div>
+
+                      </div>
+
+
+                      <div class="row">
+                        <div class="col-md-8" style="margin-top: -50%">
+                          <input type="submit" class="btn btn-info btn-fill" value="Update" />
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <div class="clearfix"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+      <footer class="footer">
+        <div class="container-fluid">
+
+          <p class="copyright pull-right">
+            &copy;
+            <script>document.write(new Date().getFullYear())</script> <a>SneakerFloat</a>
+            , made with love for a better service
+          </p>
+        </div>
+      </footer>
+
+  </div>
+
+</div>
