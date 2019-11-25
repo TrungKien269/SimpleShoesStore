@@ -158,31 +158,53 @@ export class CreateshoesComponent implements OnInit {
   }
 
   onSubmit() {
+    const sizeArr = [];
+    for (let i = 0; i < this.sizeList.length; i++) {
+      sizeArr.push(this.sizeList[i]._id);
+    }
+    this.shoesService.currentShoes.shoes_sizes = sizeArr;
     this.shoesService.CreateShoes(this.shoesService.currentShoes).subscribe((res) => {
       const response: Response = res as Response;
       if (response.status) {
         this.UploadImage((response.obj as Shoes)._id);
-        alert('Create Successfully');
-        this.initShoes();
+        Swal.fire({
+          title: 'Complete',
+          text: 'Create shoes Successfully',
+          icon: 'success'
+        }).then((result) => {
+          this.initShoes();
+        });
       }
       else {
-        alert(response.message);
-        console.log(response);
+        Swal.fire({
+          icon: 'error',
+          title: 'Fail',
+          text: response.message
+        });
       }
     });
   }
 
   UploadImage(id: string) {
-    const formData = new FormData();
-    const fileName = id + '.' + this.fileData.name.split('.')[1];
-    formData.append('files', this.fileData, fileName);
-    this.uploadService.UploadImage(formData).subscribe(events => {
-      if (events.type === HttpEventType.UploadProgress) {
-      } else if (events.type === HttpEventType.Response) {
-        console.log(events);
-      }
-      $('#blah').attr('src', '../../../assets/images/default-avatar.png');
-    });
+    if (this.fileData === null) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Fail',
+        text: 'Shoes must hava image!'
+      });
+    }
+    else {
+      const formData = new FormData();
+      const fileName = id + '.' + this.fileData.name.split('.')[1];
+      formData.append('files', this.fileData, fileName);
+      this.uploadService.UploadImage(formData).subscribe(events => {
+        if (events.type === HttpEventType.UploadProgress) {
+        } else if (events.type === HttpEventType.Response) {
+          console.log(events);
+        }
+        $('#blah').attr('src', '../../../assets/images/default-avatar.png');
+      });
+    }
   }
 
 }
